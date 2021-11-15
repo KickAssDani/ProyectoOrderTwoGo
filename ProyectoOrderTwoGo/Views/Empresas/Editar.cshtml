@@ -1,0 +1,31 @@
+﻿@model ProyectoOrderTwoGo.Models.Empresa
+@{
+    ViewBag.Title = "Editar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="container">
+    <section class="row">
+        <article class="col-md-4 offset-md-4">
+            <section class="card">
+                <article class="card-body">
+                    @using (Html.BeginForm("Editar", "Empresas", FormMethod.Post, new { @class = "form-group" }))
+                    {
+                        <section>
+                            @Html.LabelFor(m => m.nameEmpresa)
+                            @Html.EditorFor(m => m.nameEmpresa, new { htmlAttributes = new { @class = "form-control" } })
+                        </section>
+                        <br />
+                        <section style="color:red" class="row">@Html.ValidationMessageFor(m => m.nameEmpresa)</section>
+                        <section class="col-md-12">
+                            <input type="submit" class="btn btn-block btn-primary" name="nam" value="Login">
+                        </section>
+                    }
+                </article>
+            </section>
+        </article>
+    </section>
+</section>
+
+
+

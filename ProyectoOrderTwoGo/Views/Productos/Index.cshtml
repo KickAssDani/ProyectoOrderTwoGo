@@ -1,0 +1,54 @@
+﻿@model IEnumerable<ProyectoOrderTwoGo.Models.Productos>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section>
+    @if (TempData["mensaje"] != null)
+    {
+        <section class="alert alert-warning alert-dismissible fade show" role="alert">
+            @TempData["mensaje"]
+            <button type="button" class="close" date-dismiss="alert" arial-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </section>
+    }
+
+    <article class="row">
+        <section class="col-sm-6">
+            <h2>Lista de Empresas</h2>
+        </section>
+        <section class="col-sm-6">
+            <a class="btn btn-success d-block" asp-action="Create" asp-controller="Empresa">Agregar Empresa</a>
+            <input class="btn btn-block btn-success" type="button" />
+            <a href="~/Productos/AgregarProductos" class="">Agregar Productos</a>
+        </section>
+    </article>
+    <article class="row">
+        @if (Model.Count() > 0)
+        {
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+
+                        <td>@Html.DisplayNameFor(m => m.ProductNam)</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var i in Model)
+                    {
+                        <tr>
+                            <td>@i.ProductNam</td>
+                            <td>@i.idProduct</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p class="offset-5">No existe nada papá</p>
+        }
+    </article>
+</section>

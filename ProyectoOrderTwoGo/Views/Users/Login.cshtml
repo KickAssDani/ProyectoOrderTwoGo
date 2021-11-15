@@ -1,0 +1,37 @@
+﻿@model ProyectoOrderTwoGo.Models.Usuarios
+@{
+    ViewBag.Title = "Login";
+
+    if (Session["users"] != null)
+    {
+        Response.Redirect("~/Home/Index");
+    }
+}
+
+<section class="container">
+    <section class="row">
+        <article class="col-md-4 offset-md-4">
+            <section class="card">
+                <article class="card-body">
+                    @using (Html.BeginForm("Authorice", "Users", FormMethod.Post, new { @class = "form-group" }))
+                    {
+                        <section>
+                            @Html.LabelFor(m => m.usuario)
+                            @Html.EditorFor(m => m.usuario, new { htmlAttributes = new { @class = "form-control" } })
+                        </section>
+                        <section>
+                            @Html.LabelFor(m => m.clave)
+                            @Html.EditorFor(m => m.clave, new { htmlAttributes = new { @class = "form-control" } })
+                        </section>
+                        <br />
+                        <section style="color:red" class="row">@Html.ValidationMessageFor(m => m.usuario)</section>
+                        <section style="color:red">@Html.ValidationMessageFor(m => m.clave)</section>
+                        <section class="col-md-12">
+                            <input type="submit" class="btn btn-block btn-primary" name="nam" value="Login">
+                        </section>
+                    }
+                </article>
+            </section>
+        </article>
+    </section>
+</section>

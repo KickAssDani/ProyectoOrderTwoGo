@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    if (Session["user"] == null)
+    {
+        Response.Redirect("~/Users/Login");
+    }
+}
+
+@if (TempData["Mensaje"] != null)
+{
+    <section class="alert alert-warning alert-dismissible fade show" role="alert">
+        @TempData["Mensaje"]
+        <button type="button" class="close" date-dismiss="alert" arial-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </section>
+}
+
+

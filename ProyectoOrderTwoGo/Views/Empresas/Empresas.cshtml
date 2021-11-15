@@ -1,0 +1,27 @@
+﻿@model ProyectoOrderTwoGo.Models.Empresa
+@{
+    ViewBag.Title = "Empresas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="conteiner">
+    <section class="row">
+        <section class="card">
+            @using (Html.BeginForm("AgregarEmpresa", "Empresas", FormMethod.Post, new { @class = "form-group" }))
+            {
+                <section class="card-body">
+                    @Html.LabelFor(m => m.nameEmpresa)
+                    @Html.EditorFor(m => m.nameEmpresa)
+                </section>
+                <section>
+                    <section class="col-md-12">
+                        <input type="submit" class="btn btn-block btn-primary" name="nam" value="Agregar">
+                    </section>
+                </section>
+
+            }
+        </section>
+    </section>
+</section>
+
+

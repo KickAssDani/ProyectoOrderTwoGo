@@ -1,0 +1,63 @@
+﻿@model ProyectoOrderTwoGo.Models.Usuarios
+@{
+    ViewBag.Title = Session["user"];
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (Session["Rol"] == null)
+    {
+        Response.Redirect("~/Home/Index");
+    }
+    else
+    {
+        if (int.Parse(Session["Rol"].ToString()) != 1)
+        {
+            Response.Redirect("~/Home/Index");
+        }
+    }
+
+}
+
+@if (TempData["Mensaje"] != null)
+{
+    <section class="alert alert-warning alert-dismissible fade show" role="alert">
+        @TempData["Mensaje"]
+        <button type="button" class="close" date-dismiss="alert" arial-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </section>
+}
+<section class="container">
+    <article class="row">
+        <article class="col-md-4 offset-md-4">
+            <section class="card col-md-12">
+                <section class="card-body col">
+                    @using (Html.BeginForm("AgregarPost", "Users", FormMethod.Post, new { @class = "form-group" }))
+                    {
+                        @Html.LabelFor(m => m.NombreUsuario)
+                        @Html.EditorFor(m => m.NombreUsuario, new { htmlAttributes = new { @class = "form-control" } })
+
+                        <br />
+                        @Html.LabelFor(m => m.usuario)
+                        @Html.EditorFor(m => m.usuario, new { htmlAttributes = new { @class = "form-control" } })
+                        <br />
+                        @Html.LabelFor(m => m.idEmpresa)
+                        @Html.DropDownListFor(x => x.idEmpresa, (SelectList)ViewBag.Empresa, new { @class = "form-control" })
+                        <br />
+                        @Html.LabelFor(m => m.idRol)
+                        @Html.DropDownListFor(x => x.idRol, (SelectList)ViewBag.Roles, new { @class = "form-control" })
+
+                        @Html.LabelFor(m => m.clave)
+                        @Html.EditorFor(m => m.clave, new { htmlAttributes = new { @class = "form-control" } })
+
+                        <br />
+
+                        <section>
+                            <input type="submit" class="btn btn-block btn-primary" value="Registrar " />
+                        </section>
+                    }
+                </section>
+            </section>
+        </article>
+    </article>
+</section>
+
+

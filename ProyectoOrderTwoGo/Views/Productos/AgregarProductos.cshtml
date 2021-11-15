@@ -1,0 +1,30 @@
+﻿@model ProyectoOrderTwoGo.Models.Productos
+@{
+    ViewBag.Title = "AgregarProductos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm("AgregarProductosAdmi", "Productos"))
+{
+    @Html.LabelFor(m => m.ProductNam)
+    @Html.EditorFor(m => m.ProductNam)
+
+    <br />
+    @Html.LabelFor(m => m.precio)
+    @Html.EditorFor(m => m.precio)
+    <br />
+
+    @Html.DropDownListFor(x => x.idEmpresa,(SelectList)ViewBag.Empresa)
+
+
+    <br />
+
+    <section>
+        <input type="submit" value="Registrar " />
+    </section>
+
+}
+
+
+

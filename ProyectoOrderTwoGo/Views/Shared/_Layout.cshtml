@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container">
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+
+
+                    @if (Session["Rol"] != null && int.Parse(Session["Rol"].ToString()) == 1)
+                    {
+                        <li class="nav-item">@Html.ActionLink("Inicio", "Index", "Home", new { area = "" }, new { @class = "nav-link text-dark" })</li>
+                        @Html.ActionLink("Agregar Usuario", "Agregar", "Users", new { area = "" }, new { @class = "nav-link text-dark" })
+                        <a href="@Url.Action("LogOut", "Users")" class="nav-link text-dark">Log Out</a>
+                        @Html.ActionLink("Agregar Empresa", "Index", "Empresas", new { area = "" }, new { @class = "nav-link text-dark" })
+
+                        @Html.ActionLink("Agregar Producto", "Index", "Productos", new { area = "" }, new { @class = "nav-link text-dark" })
+                    }
+                    else
+                    {
+                        if (Session["user"] != null)
+                        {
+                            <a href="@Url.Action("LogOut", "Users")" class="nav-link text-dark">Log Out</a>
+                        }
+                    }
+                </ul>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+</body>
+</html>
