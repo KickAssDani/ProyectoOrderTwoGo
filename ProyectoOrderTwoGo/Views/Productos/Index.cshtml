@@ -14,15 +14,12 @@
             </button>
         </section>
     }
-
     <article class="row">
         <section class="col-sm-6">
-            <h2>Lista de Empresas</h2>
+            <h2>Lista de Productos</h2>
         </section>
         <section class="col-sm-6">
-            <a class="btn btn-success d-block" asp-action="Create" asp-controller="Empresa">Agregar Empresa</a>
-            <input class="btn btn-block btn-success" type="button" />
-            <a href="~/Productos/AgregarProductos" class="">Agregar Productos</a>
+            <a href="~/Productos/AgregarProductos" class="btn btn-success d-block">Agregar Productos</a>
         </section>
     </article>
     <article class="row">
@@ -31,16 +28,20 @@
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
-
+                        <td>@Html.DisplayNameFor(m => m.idProduct)</td>
                         <td>@Html.DisplayNameFor(m => m.ProductNam)</td>
+                        <td>@Html.DisplayNameFor(m => m.precio)</td>
+                        <td>Editar</td>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var i in Model)
                     {
                         <tr>
-                            <td>@i.ProductNam</td>
                             <td>@i.idProduct</td>
+                            <td>@i.ProductNam</td>
+                            <td>@i.precio</td>
+                            <td>@Html.ActionLink("Editar", "EditarProducto", new { id = i.idProduct })</td>
                         </tr>
                     }
                 </tbody>

@@ -19,27 +19,21 @@ namespace ProyectoOrderTwoGo.Controllers
         public ActionResult Index()
         {
             try
-            {            
-                int id = 0;
+            {   
+                //Método para traer solo productos de la empresa en la que se encuntra el usuario.
                 if (Session["Empresa"] == null)
                 {
                     return RedirectToAction("Login", "Users");
                 }
-                else
-                {
-                    id = int.Parse(Session["Empresa"].ToString());
-                }  
-                
-                IEnumerable<Productos> ListaProductos = _context.Productos.Where(x => x.idEmpresa == id).ToList();
-
+                int id = int.Parse(Session["Empresa"].ToString());
+                IEnumerable < Productos > ListaProductos = _context.Productos.Where(x => x.idEmpresa == id).ToList();
                 return View(ListaProductos);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                TempData["Mensaje"] = "Ha ocurrido un error mostrando los productos, por favor verificar: " + ex.Message;
+                return RedirectToAction("Index", "Home");
             }
-           
         }
 
         public ActionResult AgregarProductos()
@@ -48,6 +42,34 @@ namespace ProyectoOrderTwoGo.Controllers
             List<Empresa> _Lista = _Empresas.Obtener();
             ViewBag.Empresa = new SelectList(_Lista, "idEmpresa", "nameEmpresa");
             return View();
+        }
+
+        
+        public ActionResult EditarProducto(int? id)
+        {
+            Productos productos = _context.Productos.Find(id);
+
+            ListaEmpresas _Empresas = new ListaEmpresas();
+            List<Empresa> _Lista = _Empresas.Obtener();
+            ViewBag.Empresa = new SelectList(_Lista, "idEmpresa", "nameEmpresa");
+
+            return View(productos);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Productos _productos)
+        {
+            using (Orden2GoEntities db = new Orden2GoEntities())
+            {
+                Productos producto = db.Productos.Find(_productos.idProduct);
+
+                producto.ProductNam = _productos.ProductNam;
+                producto.idEmpresa = _productos.idEmpresa;
+                producto.precio = _productos.precio;              
+                _context.SaveChanges();
+                TempData["Mensaje"] = "Se hicieron los cambios correctamente";
+                return RedirectToAction("Index");
+            }
         }
 
         [HttpPost]

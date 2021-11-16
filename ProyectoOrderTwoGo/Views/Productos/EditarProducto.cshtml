@@ -1,0 +1,31 @@
+﻿@model ProyectoOrderTwoGo.Models.Productos
+@{
+    ViewBag.Title = "EditarProducto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Edit", "Productos"))
+{
+    @Html.HiddenFor(m => m.idProduct)
+
+    @Html.LabelFor(m => m.ProductNam)
+    @Html.EditorFor(m => m.ProductNam)
+
+    <br />
+    @Html.LabelFor(m => m.precio)
+    @Html.EditorFor(m => m.precio)
+    <br />
+
+    @Html.LabelFor(m => m.idEmpresa)
+    @Html.DropDownListFor(x => x.idEmpresa, (SelectList)ViewBag.Empresa, new { @class = "form-control" })
+
+
+    <br />
+
+    <section>
+        <input type="submit" value="Actualizar " />
+    </section>
+
+}
+
+
