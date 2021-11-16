@@ -41,9 +41,35 @@ namespace ProyectoOrderTwoGo.Controllers
         }
         public ActionResult Actualizar(Empresa _empresa)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                TempData["Mensaje"] = "Debe de destar el campo rellenado."
+                if (!ModelState.IsValid)
+                {
+                    TempData["Mensaje"] = "Debe de destar el campo rellenado.";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    var result = _context.Empresa.FirstOrDefault();
+                    if (result.nameEmpresa == _empresa.nameEmpresa)
+                    {
+                        TempData["Mensaje"] = "Ya hay una empresa con el mismo nombre, verifique.";
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        Empresa emp = _context.Empresa.Find(_empresa.idEmpresa);
+                        emp.nameEmpresa = _empresa.nameEmpresa;
+                        _context.SaveChanges();
+                        TempData["Mensaje"] = "Se hicieron los cambios correctamente";
+                        return RedirectToAction("Index");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["Mensaje"] = "Hubo un error:" + ex.Message;
+                return RedirectToAction("Index");
             }
         }
 
