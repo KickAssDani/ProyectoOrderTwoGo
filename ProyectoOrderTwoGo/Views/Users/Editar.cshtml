@@ -7,8 +7,8 @@
 <section class="container">
 <article class="row">
     <article class="col-md-4 offset-md-4">
-        <section class="card col-md-12">
-            <section class="card-body col">
+        <section class="card">
+            <section class="offset-md-1">
                 @using (Html.BeginForm("Actualizar", "Users", FormMethod.Post, new { @class = "form-group" }))
                 {
                     @Html.HiddenFor(m => m.idUsuario)
@@ -28,9 +28,7 @@
 
                     @Html.LabelFor(m => m.clave)
                     @Html.EditorFor(m => m.clave, new { htmlAttributes = new { @class = "form-control" } })
-
                     <br />
-
                     <section>
                         <input type="submit" class="btn btn-block btn-primary" value="Actualizar" />
                     </section>

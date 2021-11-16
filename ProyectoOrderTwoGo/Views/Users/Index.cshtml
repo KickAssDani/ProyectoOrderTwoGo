@@ -16,15 +16,14 @@
     }
     <article class="container">
         <article class="row">
-            <section class="offset-3">
+            <section class="offset-md-3">
                 <h4>Lista de Empleados</h4>
             </section>
             <section class="col-md-4">
                 <a href="~/Users/Agregar" class="btn btn-block btn-primary">Agregar Empleado</a>
+                <br />
             </section>
-        </article>
-        <br />
-        <article class="offset-2 col-md-8">
+
             @if (Model.Count() > 0)
             {
                 <table class="table table-bordered table-striped">
@@ -44,7 +43,7 @@
                                 <td>@i.NombreUsuario</td>
                                 <td>@i.usuario</td>
                                 <td>
-                                    @Html.ActionLink("Editar", "Editar", new { id = i.idUsuario })
+                                    @Html.ActionLink("Editar", "Editar", new { id = i.idUsuario }, new { @class = "btn btn-block btn-warning" })
                                 </td>
                             </tr>
                         }

@@ -38,36 +38,57 @@ namespace ProyectoOrderTwoGo.Controllers
 
         public ActionResult AgregarProductos()
         {
-            ListaEmpresas _Empresas = new ListaEmpresas();
-            List<Empresa> _Lista = _Empresas.Obtener();
-            ViewBag.Empresa = new SelectList(_Lista, "idEmpresa", "nameEmpresa");
-            return View();
+            try
+            {
+                ListaEmpresas _Empresas = new ListaEmpresas();
+                List<Empresa> _Lista = _Empresas.Obtener();
+                ViewBag.Empresa = new SelectList(_Lista, "idEmpresa", "nameEmpresa");
+                return View();
+            }
+            catch (Exception ex)
+            {
+                TempData["Mensaje"] = "Ha ocurrido un error mostrando los productos, por favor verificar: " + ex.Message;
+                return RedirectToAction("Index");
+            }
         }
 
         
         public ActionResult EditarProducto(int? id)
         {
-            Productos productos = _context.Productos.Find(id);
+            try
+            {
+                Productos productos = _context.Productos.Find(id);
 
-            ListaEmpresas _Empresas = new ListaEmpresas();
-            List<Empresa> _Lista = _Empresas.Obtener();
-            ViewBag.Empresa = new SelectList(_Lista, "idEmpresa", "nameEmpresa");
+                ListaEmpresas _Empresas = new ListaEmpresas();
+                List<Empresa> _Lista = _Empresas.Obtener();
+                ViewBag.Empresa = new SelectList(_Lista, "idEmpresa", "nameEmpresa");
 
-            return View(productos);
+                return View(productos);
+            }
+            catch (Exception ex)
+            {
+                TempData["Mensaje"] = "Ha ocurrido un error editar el producto, por favor verificar: " + ex.Message;
+                return RedirectToAction("Index");
+            }
         }
 
         [HttpPost]
         public ActionResult Edit(Productos _productos)
         {
-            using (Orden2GoEntities db = new Orden2GoEntities())
-            {
-                Productos producto = db.Productos.Find(_productos.idProduct);
 
+            try
+            {
+                Productos producto = _context.Productos.Find(_productos.idProduct);
                 producto.ProductNam = _productos.ProductNam;
                 producto.idEmpresa = _productos.idEmpresa;
-                producto.precio = _productos.precio;              
+                producto.precio = _productos.precio;
                 _context.SaveChanges();
                 TempData["Mensaje"] = "Se hicieron los cambios correctamente";
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                TempData["Mensaje"] = "Ha ocurrido un error editar el producto, por favor verificar: " + ex.Message;
                 return RedirectToAction("Index");
             }
         }

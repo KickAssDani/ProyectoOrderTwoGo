@@ -2,26 +2,55 @@
 @{
     ViewBag.Title = "Empresas";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    if (Session["Rol"] == null)
+    {
+        Response.Redirect("~/Home/Index");
+    }
+    else
+    {
+        if (int.Parse(Session["Rol"].ToString()) != 1)
+        {
+            Response.Redirect("~/Home/Index");
+        }
+    }
 }
 
-<section class="conteiner">
-    <section class="row">
-        <section class="card">
-            @using (Html.BeginForm("AgregarEmpresa", "Empresas", FormMethod.Post, new { @class = "form-group" }))
-            {
-                <section class="card-body">
-                    @Html.LabelFor(m => m.nameEmpresa)
-                    @Html.EditorFor(m => m.nameEmpresa)
-                </section>
-                <section>
-                    <section class="col-md-12">
-                        <input type="submit" class="btn btn-block btn-primary" name="nam" value="Agregar">
-                    </section>
-                </section>
-
-            }
+<section class="container">
+    @if (TempData["mensaje"] != null)
+    {
+        <section class="alert alert-warning alert-dismissible fade show" role="alert">
+            @TempData["mensaje"]
+            <button type="button" class="close" date-dismiss="alert" arial-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </section>
+    }
+
+    <section class="row">
+        <article class="col-md-4 offset-md-4">
+            <section class="card">
+                <article class="offset-md-1">
+                    @using (Html.BeginForm("AgregarEmpresa", "Empresas", FormMethod.Post, new { @class = "form-group" }))
+                    {
+                        @Html.HiddenFor(m => m.idEmpresa)
+                        <section>
+                            @Html.LabelFor(m => m.nameEmpresa)
+                            @Html.EditorFor(m => m.nameEmpresa, new { htmlAttributes = new { @class = "form-control" } })
+                        </section>
+                        <br />
+                        <section style="color:red" class="row">@Html.ValidationMessageFor(m => m.nameEmpresa)</section>
+                        <section class="">
+                            <input type="submit" class="btn btn-block btn-primary" name="nam" value="Agregar Empresa">
+                        </section>
+                    }
+                </article>
+            </section>
+        </article>
     </section>
 </section>
+
+
+
 
 

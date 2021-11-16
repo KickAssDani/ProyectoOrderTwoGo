@@ -20,9 +20,16 @@ namespace ProyectoOrderTwoGo.Controllers
 
         public ActionResult Index()
         {
-            IEnumerable<Empresa> listaEmpresas = _context.Empresa.ToList();
-
-            return View(listaEmpresas);
+            try
+            {
+                IEnumerable<Empresa> listaEmpresas = _context.Empresa.ToList();
+                return View(listaEmpresas);
+            }
+            catch (Exception ex)
+            {
+                TempData["Mensaje"] = "Ocurrió un error en Empresas: " +ex.Message;
+                return RedirectToAction("Index", "Home");
+            }
         }
         public ActionResult Empresas()
         {
@@ -30,14 +37,25 @@ namespace ProyectoOrderTwoGo.Controllers
         }
         public ActionResult Editar(int? id)
         {
-            if(id == null)
+            try
             {
-                TempData["Mensaje"] = "El id debe de existir";
-                RedirectToAction("Index");
+                if (id == null)
+                {
+                    TempData["Mensaje"] = "El id debe de existir";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    Empresa _empresa = _context.Empresa.Find(id);
+                    return View(_empresa);
+                }
+                
             }
-            Empresa _empresa = _context.Empresa.Find(id);
-
-            return View(_empresa);
+            catch (Exception ex)
+            {
+                TempData["Mensaje"] = "Ocurrió un error al editar la Empresa: " + ex.Message;
+                return RedirectToAction("Index");
+            }
         }
         public ActionResult Actualizar(Empresa _empresa)
         {

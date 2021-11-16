@@ -19,22 +19,40 @@ namespace ProyectoOrderTwoGo.Controllers
 
         public ActionResult Agregar()
         {
-            ListaEmpresas _Empresas = new ListaEmpresas();
-            List<Empresa> _Lista = _Empresas.Obtener();
-            ViewBag.Empresa = new SelectList(_Lista, "idEmpresa", "nameEmpresa");
+            try
+            {
+                ListaEmpresas _Empresas = new ListaEmpresas();
+                List<Empresa> _Lista = _Empresas.Obtener();
+                ViewBag.Empresa = new SelectList(_Lista, "idEmpresa", "nameEmpresa");
 
-            ListaEmpresas _Roles = new ListaEmpresas();
-            List<Roles> _Rols = _Roles.ObtenerRoles();
-            ViewBag.Roles = new SelectList(_Rols, "idRol", "nameRol");
+                ListaEmpresas _Roles = new ListaEmpresas();
+                List<Roles> _Rols = _Roles.ObtenerRoles();
+                ViewBag.Roles = new SelectList(_Rols, "idRol", "nameRol");
 
-            return View();
+                return View();
+            }
+            catch (Exception ex)
+            {
+
+                TempData["Mensaje"] = "En el modulo de usuarios ocurrió algún problema: " + ex.Message;
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         public ActionResult Index()
         {
-            IEnumerable<Usuarios> _listsEmpleados = _context.Usuarios.ToList();
+            try
+            {
+                IEnumerable<Usuarios> _listsEmpleados = _context.Usuarios.ToList();
 
-            return View(_listsEmpleados);
+                return View(_listsEmpleados);
+            }
+            catch (Exception ex)
+            {
+
+                TempData["Mensaje"] = "En el modulo de usuarios ocurrió algún problema: " + ex.Message;
+                return RedirectToAction("Index", "Home");
+            }
         }
         public ActionResult Login()
         {
@@ -43,26 +61,34 @@ namespace ProyectoOrderTwoGo.Controllers
 
         public ActionResult Editar(int? id)
         {
-            Usuarios user = _context.Usuarios.Find(id);
+            try
+            {
+                Usuarios user = _context.Usuarios.Find(id);
 
-            ListaEmpresas _Empresas = new ListaEmpresas();
-            List<Empresa> _Lista = _Empresas.Obtener();
-            ViewBag.Empresa = new SelectList(_Lista, "idEmpresa", "nameEmpresa", user.idEmpresa);
+                ListaEmpresas _Empresas = new ListaEmpresas();
+                List<Empresa> _Lista = _Empresas.Obtener();
+                ViewBag.Empresa = new SelectList(_Lista, "idEmpresa", "nameEmpresa", user.idEmpresa);
 
-            ListaEmpresas _Roles = new ListaEmpresas();
-            List<Roles> _Rols = _Roles.ObtenerRoles();
-            ViewBag.Roles = new SelectList(_Rols, "idRol", "nameRol", user.idRol);
+                ListaEmpresas _Roles = new ListaEmpresas();
+                List<Roles> _Rols = _Roles.ObtenerRoles();
+                ViewBag.Roles = new SelectList(_Rols, "idRol", "nameRol", user.idRol);
 
-            return View(user);
+                return View(user);
+            }
+            catch (Exception ex)
+            {
+                TempData["Mensaje"] = "Hubieron errores en el ingreso de los datos: " + ex.Message;
+                return RedirectToAction("Index");
+            }
         }
 
 
         [HttpPost]
         public ActionResult Actualizar(Usuarios _usuarios)
         {
-            using (Orden2GoEntities db = new Orden2GoEntities())
+            try
             {
-                Usuarios _users = db.Usuarios.Find(_usuarios.idUsuario);
+                Usuarios _users = _context.Usuarios.Find(_usuarios.idUsuario);
 
                 _users.NombreUsuario = _usuarios.NombreUsuario;
                 _users.usuario = _usuarios.usuario;
@@ -73,6 +99,12 @@ namespace ProyectoOrderTwoGo.Controllers
                 TempData["Mensaje"] = "Se hicieron los cambios correctamente";
                 return RedirectToAction("Index");
             }
+            catch (Exception ex)
+            {
+                TempData["Mensaje"] = "Hubieron errores en la actualización: " +ex.Message;
+                return RedirectToAction("Index");
+            }
+                
         }
 
         [HttpPost]
@@ -89,7 +121,7 @@ namespace ProyectoOrderTwoGo.Controllers
                         _context.Usuarios.Add(_usuarios);
                         _context.SaveChanges();
                         TempData["Mensaje"] = "Se agregó correctamente el dato.";
-                        return RedirectToAction("Agregar");
+                        return RedirectToAction("Index");
                     }
                     else
                     {
@@ -102,29 +134,38 @@ namespace ProyectoOrderTwoGo.Controllers
             catch (Exception ex)
             {
                 TempData["Mensaje"] = "Hubo un error:" + ex.Message;
-                return RedirectToAction("Agregar");
+                return RedirectToAction("Index");
             }
         }
 
         [HttpPost]
         public ActionResult Authorice(ProyectoOrderTwoGo.Models.Usuarios users)
         {
-            using (Orden2GoEntities db = new Orden2GoEntities())
+            try
             {
-                var UserDatails = db.Usuarios.Where(x => x.usuario == users.usuario && x.clave == users.clave).FirstOrDefault();
-                if (UserDatails == null)
+                using (Orden2GoEntities db = new Orden2GoEntities())
                 {
-                    ViewBag.Error = "Hubo un error a la hora de intentar validar el usuario.";
-                    return View("Index", users);
+                    var UserDatails = db.Usuarios.Where(x => x.usuario == users.usuario && x.clave == users.clave).FirstOrDefault();
+                    if (UserDatails == null)
+                    {
+                        ViewBag.Error = "Hubo un error a la hora de intentar validar el usuario.";
+                        return View("Index", users);
+                    }
+                    else
+                    {
+                        Session["user"] = UserDatails.NombreUsuario;
+                        Session["Rol"] = UserDatails.idRol;
+                        Session["Empresa"] = UserDatails.idEmpresa;
+                        TempData["mensaje"] = "Bienvenido " + Session["user"];
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
-                else
-                {
-                    Session["user"] = UserDatails.NombreUsuario;
-                    Session["Rol"] = UserDatails.idRol;
-                    Session["Empresa"] = UserDatails.idEmpresa;
-                    TempData["mensaje"] = "Bienvenido " + Session["user"];
-                    return RedirectToAction("Index", "Home");
-                }
+            }
+            catch (Exception ex)
+            {
+
+                TempData["mensaje"] = "Hubieron algunos errores a la hora de realizar la autorización, por favor corregir estos errores: " +ex.Message;
+                return RedirectToAction("Index", "Home");
             }
         }
         public ActionResult LogOut()

@@ -29,7 +29,7 @@
     <article class="row">
         <article class="col-md-4 offset-md-4">
             <section class="card col-md-12">
-                <section class="card-body col">
+                <section class="offset-md-1">
                     @using (Html.BeginForm("AgregarPost", "Users", FormMethod.Post, new { @class = "form-group" }))
                     {
                         @Html.LabelFor(m => m.NombreUsuario)
