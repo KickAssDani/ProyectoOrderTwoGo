@@ -149,7 +149,7 @@ namespace ProyectoOrderTwoGo.Controllers
                     if (UserDatails == null)
                     {
                         ViewBag.Error = "Hubo un error a la hora de intentar validar el usuario.";
-                        return View("Index", users);
+                        return RedirectToAction("Login", "Users");
                     }
                     else
                     {
