@@ -1,21 +1,9 @@
-﻿@model  IEnumerable<ProyectoOrderTwoGo.Models.Empresa>
+﻿@model  IEnumerable<ProyectoOrderTwoGo.Models.Usuarios>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-
-    if (Session["Rol"] == null)
-    {
-        Response.Redirect("~/Home/Index");
-    }
-    else
-    {
-        if (int.Parse(Session["Rol"].ToString()) != 1)
-        {
-            Response.Redirect("~/Home/Index");
-        }
-    }
-
 }
+
 <section>
     @if (TempData["mensaje"] != null)
     {
@@ -29,10 +17,10 @@
     <article class="container">
         <article class="row">
             <section class="offset-3">
-                <h4>Lista de Empresas</h4>
+                <h4>Lista de Empleados</h4>
             </section>
             <section class="col-md-4">
-                <a href="~/Empresas/Empresas" class="btn btn-block btn-primary">Registrar Empresa</a>
+                <a href="~/Users/Agregar" class="btn btn-block btn-primary">Agregar Empleado</a>
             </section>
         </article>
         <br />
@@ -42,8 +30,9 @@
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <td>@Html.DisplayNameFor(m => m.idEmpresa)</td>
-                            <td>@Html.DisplayNameFor(m => m.nameEmpresa)</td>
+                            <td>@Html.DisplayNameFor(m => m.idUsuario)</td>
+                            <td>@Html.DisplayNameFor(m => m.NombreUsuario)</td>
+                            <td>@Html.DisplayNameFor(m => m.usuario)</td>
                             <td>Editar</td>
                         </tr>
                     </thead>
@@ -51,10 +40,11 @@
                         @foreach (var i in Model)
                         {
                             <tr>
-                                <td>@i.idEmpresa</td>
-                                <td>@i.nameEmpresa</td>
+                                <td>@i.idUsuario</td>
+                                <td>@i.NombreUsuario</td>
+                                <td>@i.usuario</td>
                                 <td>
-                                    @Html.ActionLink("Editar", "Editar", new { id = i.idEmpresa })
+                                    @Html.ActionLink("Editar", "Editar", new { id = i.idUsuario })
                                 </td>
                             </tr>
                         }

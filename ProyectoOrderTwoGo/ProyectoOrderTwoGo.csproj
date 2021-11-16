@@ -170,6 +170,8 @@
     <Content Include="Views\Productos\Index.cshtml" />
     <Content Include="Views\Productos\AgregarProductos.cshtml" />
     <Content Include="Views\Empresas\Editar.cshtml" />
+    <Content Include="Views\Users\Editar.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -19,7 +19,7 @@
                     @if (Session["Rol"] != null && int.Parse(Session["Rol"].ToString()) == 1)
                     {
                         <li class="nav-item">@Html.ActionLink("Inicio", "Index", "Home", new { area = "" }, new { @class = "nav-link text-dark" })</li>
-                        @Html.ActionLink("Agregar Usuario", "Agregar", "Users", new { area = "" }, new { @class = "nav-link text-dark" })
+                        @Html.ActionLink("Usuarios", "Index", "Users", new { area = "" }, new { @class = "nav-link text-dark" })
                         <a href="@Url.Action("LogOut", "Users")" class="nav-link text-dark">Log Out</a>
                         @Html.ActionLink("Agregar Empresa", "Index", "Empresas", new { area = "" }, new { @class = "nav-link text-dark" })
 
