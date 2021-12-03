@@ -1,4 +1,5 @@
-﻿using ProyectoOrderTwoGo.Models;
+﻿using ProyectoOrderTwoGo.Datos;
+using ProyectoOrderTwoGo.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -36,6 +37,19 @@ namespace ProyectoOrderTwoGo.Bussinees
             }
 
             return _ListaEmpresas;
+        }
+        public List<ProductosRepository> ObtenerInfoProductos() {
+
+            ObtenerListaEmpresas _op = new ObtenerListaEmpresas();
+            DataTable _dT = _op.ObtenerInfoProductos();
+            List<ProductosRepository> _listaProductos = new List<ProductosRepository>();
+
+            foreach (DataRow r in _dT.Rows)
+            {
+                ProductosRepository _repository = new ProductosRepository(r);
+                _listaProductos.Add(_repository);
+            }
+            return _listaProductos;
         }
     }
 }

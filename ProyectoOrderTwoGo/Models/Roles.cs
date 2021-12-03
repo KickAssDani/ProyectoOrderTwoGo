@@ -15,14 +15,13 @@ namespace ProyectoOrderTwoGo.Models
 
     public partial class Roles
     {
+        public int idRol { get; set; }
+        public string nameRol { get; set; }
 
         public Roles(DataRow r)
         {
             idRol = Convert.ToInt32(r["idRol"]);
             nameRol = Convert.ToString(r["nameRol"]);
-
         }
-        public int idRol { get; set; }
-        public string nameRol { get; set; }
     }
 }

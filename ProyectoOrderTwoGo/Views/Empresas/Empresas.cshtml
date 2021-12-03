@@ -1,8 +1,6 @@
 ﻿@model ProyectoOrderTwoGo.Models.Empresa
 @{
     ViewBag.Title = "Empresas";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-
     if (Session["Rol"] == null)
     {
         Response.Redirect("~/Home/Index");
@@ -14,43 +12,57 @@
             Response.Redirect("~/Home/Index");
         }
     }
+    <link href="~/Content/Site.css" rel="stylesheet" />
 }
 
-<section class="container">
-    @if (TempData["mensaje"] != null)
-    {
-        <section class="alert alert-warning alert-dismissible fade show" role="alert">
-            @TempData["mensaje"]
-            <button type="button" class="close" date-dismiss="alert" arial-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </section>
-    }
 
-    <section class="row">
-        <article class="col-md-4 offset-md-4">
-            <section class="card">
-                <article class="offset-md-1">
-                    @using (Html.BeginForm("AgregarEmpresa", "Empresas", FormMethod.Post, new { @class = "form-group" }))
-                    {
-                        @Html.HiddenFor(m => m.idEmpresa)
-                        <section>
-                            @Html.LabelFor(m => m.nameEmpresa)
-                            @Html.EditorFor(m => m.nameEmpresa, new { htmlAttributes = new { @class = "form-control" } })
-                        </section>
-                        <br />
-                        <section style="color:red" class="row">@Html.ValidationMessageFor(m => m.nameEmpresa)</section>
-                        <section class="">
-                            <input type="submit" class="btn btn-block btn-primary" name="nam" value="Agregar Empresa">
-                        </section>
-                    }
-                </article>
-            </section>
-        </article>
+@if (TempData["mensaje"] != null)
+{
+    <section class="alert alert-warning alert-dismissible fade show" role="alert">
+        @TempData["mensaje"]
+        <button type="button" class="close" date-dismiss="alert" arial-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
     </section>
-</section>
+}
 
+<article class="container">
+    <article class="row">
+        <section class="card col-md-8 offset-2">
+            <section class="card-header">
+                <h4>Lista de Empresas</h4>
+            </section>
+            <section class="card-body">
+                @using (Html.BeginForm("AgregarEmpresa", "Empresas", FormMethod.Post, new
+                {
+                    @class = "form-group "
+                }))
+                {
+                    @Html.HiddenFor(m => m.idEmpresa)
+                    <section>
+                        @Html.LabelFor(m => m.nameEmpresa)
+                        @Html.EditorFor(m => m.nameEmpresa, new { htmlAttributes = new { @class = "col-md-12 form-control" } })
+                    </section>
+                    <br />
+                    <section>
+                        @Html.LabelFor(m => m.DescripcionEmpresa)
+                        @Html.EditorFor(m => m.DescripcionEmpresa, new { htmlAttributes = new { @class = "col-md-12 form-control" } })
+                    </section>
+                    <br />
+                    <section>
+                        @Html.LabelFor(m => m.numeroTelefono)
+                        @Html.EditorFor(m => m.numeroTelefono, new { htmlAttributes = new { @class = "col-md-12 form-control" } })
+                    </section>
+                    <section style="color:red" class="row">@Html.ValidationMessageFor(m => m.nameEmpresa)</section>
+                    <section style="color:red" class="row">@Html.ValidationMessageFor(m => m.numeroTelefono)</section>
+                    <section style="color:red" class="row">@Html.ValidationMessageFor(m => m.DescripcionEmpresa)</section>
+                    <br />
+                    <section class="">
+                        <input type="submit" class="btn btn-block btn-primary" name="nam" value="Agregar Empresa">
+                    </section>
+                }
+            </section>
+        </section>
 
-
-
-
+    </article>
+</article>

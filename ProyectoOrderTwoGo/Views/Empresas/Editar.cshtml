@@ -1,4 +1,4 @@
-﻿@model ProyectoOrderTwoGo.Models.Empresa
+﻿    @model ProyectoOrderTwoGo.Models.Empresa
 @{
     ViewBag.Title = "Editar";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -27,7 +27,17 @@
                             @Html.EditorFor(m => m.nameEmpresa, new { htmlAttributes = new { @class = "form-control" } })
                         </section>
                         <br />
+                        <section>
+                            @Html.LabelFor(m => m.DescripcionEmpresa)
+                            @Html.EditorFor(m => m.DescripcionEmpresa, new { htmlAttributes = new { @class = "form-control" } })
+                        </section>
+                        <section>
+                            @Html.LabelFor(m => m.numeroTelefono)
+                            @Html.EditorFor(m => m.numeroTelefono, new { htmlAttributes = new { @class = "form-control" } })
+                        </section>
                         <section style="color:red" class="row">@Html.ValidationMessageFor(m => m.nameEmpresa)</section>
+                        <section style="color:red" class="row">@Html.ValidationMessageFor(m => m.numeroTelefono)</section>
+                        <section style="color:red" class="row">@Html.ValidationMessageFor(m => m.DescripcionEmpresa)</section>
                         <section class="">
                             <input type="submit" class="btn btn-block btn-primary" name="nam" value="Actualizar">
                         </section>

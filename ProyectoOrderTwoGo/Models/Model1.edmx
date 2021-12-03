@@ -4,13 +4,15 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Orden2GoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Orden2GoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Empresa">
           <Key>
             <PropertyRef Name="idEmpresa" />
           </Key>
           <Property Name="idEmpresa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nameEmpresa" Type="nvarchar" MaxLength="50" />
+          <Property Name="DescripcionEmpresa" Type="varchar" MaxLength="250" />
+          <Property Name="numeroTelefono" Type="int" />
         </EntityType>
         <EntityType Name="Productos">
           <Key>
@@ -77,8 +79,7 @@
             <End Role="Usuarios" EntitySet="Usuarios" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Orden2GoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -90,6 +91,8 @@
           <Property Name="nameEmpresa" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Productos" Relationship="Self.FK_Productos_Empresa" FromRole="Empresa" ToRole="Productos" />
           <NavigationProperty Name="Usuarios" Relationship="Self.FK_Usuarios_Empresa" FromRole="Empresa" ToRole="Usuarios" />
+          <Property Name="DescripcionEmpresa" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="numeroTelefono" Type="Int32" />
         </EntityType>
         <EntityType Name="Productos">
           <Key>
@@ -167,6 +170,8 @@
           <EntitySetMapping Name="Empresa">
             <EntityTypeMapping TypeName="Orden2GoModel.Empresa">
               <MappingFragment StoreEntitySet="Empresa">
+                <ScalarProperty Name="numeroTelefono" ColumnName="numeroTelefono" />
+                <ScalarProperty Name="DescripcionEmpresa" ColumnName="DescripcionEmpresa" />
                 <ScalarProperty Name="idEmpresa" ColumnName="idEmpresa" />
                 <ScalarProperty Name="nameEmpresa" ColumnName="nameEmpresa" />
               </MappingFragment>

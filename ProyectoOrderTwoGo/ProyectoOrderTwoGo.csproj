@@ -118,6 +118,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductosController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Datos\ProductosRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -173,6 +174,7 @@
     <Content Include="Views\Users\Editar.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Productos\EditarProducto.cshtml" />
+    <Content Include="Views\Home\OrderTwoGo.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -182,7 +184,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Datos\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

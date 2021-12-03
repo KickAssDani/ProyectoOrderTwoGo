@@ -1,0 +1,53 @@
+﻿@model IEnumerable<ProyectoOrderTwoGo.Datos.ProductosRepository>
+@{
+    ViewBag.Title = "OrderTwoGo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container" id="contenedor">
+    <div class="row">
+        <div class="col-md-2" id="lateral">
+            <div class="row">
+                <div class="col-md-10" id="anuncios">
+                    <aside>
+                        <h3>Categorias</h3>
+                        @foreach (var i in ViewBag.Productos)
+                        {
+                            <ul class="navbar-nav flex-grow-1">
+                                <li><a href="#" class="nav-link text-dark">@i.NombreProducto</a></li>
+                            </ul>
+                        }
+                    </aside>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-10" id="principal">
+            <div class="row">
+                @if (ViewBag.Productos != null)
+                {
+                    foreach (var e in ViewBag.Productos)
+                    {
+                        <div class="col-md-4">
+                            <article class="card">
+                                <section class="card-header">
+                                    <span class=""><strong>@e.idProducto</strong></span><span>@e.NombreProducto</span>
+                                </section>
+                                <section class="card-body">
+                                    <br />
+                                    <label>Precio:</label>
+                                    @e.Precio
+                                    <section class="row">
+                                        <div class="col-md-6">@Html.ActionLink("Info", "Editar", new { id = e.idProducto, idEmpresa = e.idEmpresa }, new { @class = "btn btn-block btn-warning col-md-12" })</div>
+                                        <div class="col-md-6">@Html.ActionLink("Carrito", "Editar", new { id = e.idEmpresa }, new { @class = "btn btn-block btn-warning col-md-12" })</div>
+                                    </section>
+                                </section>
+                            </article>
+                            <br />
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>

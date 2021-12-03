@@ -7,7 +7,7 @@
       <Diagram DiagramId="8d8360ccbbc54804bed1b81c76c814e4" Name="Diagram1">
         <EntityTypeShape EntityType="Orden2GoModel.Empresa" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Orden2GoModel.Productos" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Orden2GoModel.Roles" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Orden2GoModel.Roles" Width="1.5" PointX="5.375" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Orden2GoModel.Usuarios" Width="1.5" PointX="3.125" PointY="3.875" IsExpanded="true" />
         <AssociationConnector Association="Orden2GoModel.FK_Productos_Empresa" ManuallyRouted="false" />
         <AssociationConnector Association="Orden2GoModel.FK_Usuarios_Empresa" ManuallyRouted="false" />

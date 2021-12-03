@@ -15,6 +15,7 @@
                 <article class="offset-md-1">
                     @using (Html.BeginForm("Authorice", "Users", FormMethod.Post, new { @class = "form-group" }))
                     {
+                        
                         <section class="form-group">
                             @Html.LabelFor(m => m.usuario)
                             @Html.EditorFor(m => m.usuario, new { htmlAttributes = new { @class = "form-control" } })
@@ -27,7 +28,10 @@
                         <section style="color:red" class="row">@Html.ValidationMessageFor(m => m.usuario)</section>
                         <section style="color:red">@Html.ValidationMessageFor(m => m.clave)</section>
                         <section class="">
-                            <input type="submit" class="btn btn-block btn-primary" name="nam" value="Login">
+                            <section class="row">
+                                <div class="col-md-5"> <input type="submit" class="btn btn-block btn-primary" name="nam" value="Login"></div>
+                                <div class="col-md-6"> <a href="https://www.google.com" class="btn btn-block btn-primary">Registrarse</a></div>
+                            </section>
                         </section>
                     }
                 </article>

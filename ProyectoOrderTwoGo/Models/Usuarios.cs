@@ -11,32 +11,14 @@ namespace ProyectoOrderTwoGo.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Usuarios
     {
         public int idUsuario { get; set; }
-
-        
-        [DisplayName("Tipo de Empleado:")]
-        [Required]
         public int idRol { get; set; }
-        
-        [DisplayName("Empresa:")]
-        [Required]
         public Nullable<int> idEmpresa { get; set; }
-        
-        [DisplayName("Nombre de Empleado:")]
-        [Required]
         public string NombreUsuario { get; set; }
-        
-        [DisplayName("Usuario:")]
-        [Required]
         public string usuario { get; set; }
-        
-        [Required]
-        [DataType(DataType.Password)]
         public string clave { get; set; }
     
         public virtual Empresa Empresa { get; set; }

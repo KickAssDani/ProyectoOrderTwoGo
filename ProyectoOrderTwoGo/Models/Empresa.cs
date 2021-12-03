@@ -14,29 +14,31 @@ namespace ProyectoOrderTwoGo.Models
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.Data;
-    using System.Data.Entity;
-    using System.Linq;
 
-    public partial class Empresa :DbContext
-    { 
+    public partial class Empresa
+    {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Empresa()
         {
             this.Productos = new HashSet<Productos>();
             this.Usuarios = new HashSet<Usuarios>();
         }
-
         public Empresa(DataRow r)
         {
             idEmpresa = Convert.ToInt32(r["idEmpresa"]);
             nameEmpresa = Convert.ToString(r["nameEmpresa"]);
-            
+            numeroTelefono = Convert.ToInt32(r["numeroTelefono"]);
         }
-        
         public int idEmpresa { get; set; }
-        [DisplayName("Nombre Empresa:")]
         [Required]
+        [DisplayName("Nombre de Empresa:")]
         public string nameEmpresa { get; set; }
+        [Required]
+        [DisplayName("Descripción de Empresa:")]
+        public string DescripcionEmpresa { get; set; }
+        [Required]
+        [DisplayName("Número telefónico:")]
+        public Nullable<int> numeroTelefono { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Productos> Productos { get; set; }

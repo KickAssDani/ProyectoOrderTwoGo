@@ -11,20 +11,12 @@ namespace ProyectoOrderTwoGo.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Productos
     {
         public int idProduct { get; set; }
-        [DisplayName("Nombre Producto:")]
-        [Required]
         public string ProductNam { get; set; }
-        [DisplayName("Empresa del producto:")]
-        [Required]
         public Nullable<int> idEmpresa { get; set; }
-        [DisplayName("Precio:")]
-        [Required]
         public Nullable<int> precio { get; set; }
     
         public virtual Empresa Empresa { get; set; }
