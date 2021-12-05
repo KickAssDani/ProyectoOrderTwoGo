@@ -14,6 +14,7 @@
         <EntityTypeShape EntityType="Orden2GoModel.Carrito" Width="1.5" PointX="5.375" PointY="3.5" />
         <AssociationConnector Association="Orden2GoModel.FK_Carrito_Productos" />
         <AssociationConnector Association="Orden2GoModel.FK_Carrito_Usuarios" />
+        <AssociationConnector Association="Orden2GoModel.FK_Carrito_Empresa" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

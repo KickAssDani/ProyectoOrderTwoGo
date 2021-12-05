@@ -43,7 +43,6 @@ namespace ProyectoOrderTwoGo.Models
 
         public HttpPostedFileBase Imagen { get; set; }
 
-        public virtual Empresa Empresa { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Carrito> Carrito { get; set; }
     }

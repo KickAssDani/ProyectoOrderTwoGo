@@ -14,22 +14,21 @@ namespace ProyectoOrderTwoGo.Models
     
     public partial class Usuarios
     {
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Usuarios()
         {
             this.Carrito = new HashSet<Carrito>();
         }
+    
         public int idUsuario { get; set; }
         public int idRol { get; set; }
         public Nullable<int> idEmpresa { get; set; }
         public string NombreUsuario { get; set; }
         public string usuario { get; set; }
         public string clave { get; set; }
-
+    
         public virtual Empresa Empresa { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Carrito> Carrito { get; set; }
     }
-}
 }

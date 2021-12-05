@@ -49,5 +49,33 @@ namespace ProyectoOrderTwoGo.Controllers
             }
         }
 
+        public ActionResult Carrito(int id)
+        {
+            try
+            {
+                Productos productos = _context.Productos.Find(id);
+
+                Carrito _carrito = new Carrito();
+
+                _carrito.idProducto = productos.idProduct;
+                _carrito.idEmpresa = productos.idEmpresa;
+                _carrito.precio = productos.precio;
+                _carrito.cantidad = 1;
+                _carrito.total = (productos.precio * 1);
+                _carrito.idUsuario = int.Parse(Session["id"].ToString());
+
+                _context.Carrito.Add(_carrito);
+                _context.SaveChanges();
+                TempData["Mensaje"] = "Se hicieron los cambios correctamente";
+                return RedirectToAction("OrderTwoGo");
+            }
+            catch (Exception ex)
+            {
+
+                TempData["Mensaje"] = "Hubo un error mientras se registraba el producto " + ex.Message;
+                return RedirectToAction("OrderTwoGo");
+            }
+        }
+
     }
 }

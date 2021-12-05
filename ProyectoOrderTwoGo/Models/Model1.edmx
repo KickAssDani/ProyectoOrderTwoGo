@@ -12,6 +12,7 @@
           <Property Name="idCarrito" Type="int" Nullable="false" />
           <Property Name="idUsuario" Type="int" />
           <Property Name="idProducto" Type="int" />
+          <Property Name="idEmpresa" Type="int" />
           <Property Name="cantidad" Type="int" />
           <Property Name="precio" Type="int" />
           <Property Name="total" Type="int" />
@@ -54,6 +55,18 @@
           <Property Name="usuario" Type="varchar" MaxLength="50" />
           <Property Name="clave" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <Association Name="FK_Carrito_Empresa">
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
+          <End Role="Carrito" Type="Self.Carrito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="idEmpresa" />
+            </Principal>
+            <Dependent Role="Carrito">
+              <PropertyRef Name="idEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Carrito_Productos">
           <End Role="Productos" Type="Self.Productos" Multiplicity="0..1" />
           <End Role="Carrito" Type="Self.Carrito" Multiplicity="*" />
@@ -108,6 +121,10 @@
           <EntitySet Name="Productos" EntityType="Self.Productos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Carrito_Empresa" Association="Self.FK_Carrito_Empresa">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="Carrito" EntitySet="Carrito" />
+          </AssociationSet>
           <AssociationSet Name="FK_Carrito_Productos" Association="Self.FK_Carrito_Productos">
             <End Role="Productos" EntitySet="Productos" />
             <End Role="Carrito" EntitySet="Carrito" />
@@ -139,6 +156,7 @@
           <NavigationProperty Name="Usuarios" Relationship="Self.FK_Usuarios_Empresa" FromRole="Empresa" ToRole="Usuarios" />
           <Property Name="DescripcionEmpresa" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="numeroTelefono" Type="Int32" />
+          <NavigationProperty Name="Carrito" Relationship="Orden2GoModel.FK_Carrito_Empresa" FromRole="Empresa" ToRole="Carrito" />
         </EntityType>
         <EntityType Name="Productos">
           <Key>
@@ -219,6 +237,10 @@
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="Carrito" EntitySet="Carrito" />
           </AssociationSet>
+          <AssociationSet Name="FK_Carrito_Empresa" Association="Orden2GoModel.FK_Carrito_Empresa">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="Carrito" EntitySet="Carrito" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Carrito">
           <Key>
@@ -232,6 +254,8 @@
           <Property Name="total" Type="Int32" />
           <NavigationProperty Name="Productos" Relationship="Orden2GoModel.FK_Carrito_Productos" FromRole="Carrito" ToRole="Productos" />
           <NavigationProperty Name="Usuarios" Relationship="Orden2GoModel.FK_Carrito_Usuarios" FromRole="Carrito" ToRole="Usuarios" />
+          <Property Name="idEmpresa" Type="Int32" />
+          <NavigationProperty Name="Empresa" Relationship="Orden2GoModel.FK_Carrito_Empresa" FromRole="Carrito" ToRole="Empresa" />
         </EntityType>
         <Association Name="FK_Carrito_Productos">
           <End Type="Orden2GoModel.Productos" Role="Productos" Multiplicity="0..1" />
@@ -254,6 +278,18 @@
             </Principal>
             <Dependent Role="Carrito">
               <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Carrito_Empresa">
+          <End Type="Orden2GoModel.Empresa" Role="Empresa" Multiplicity="0..1" />
+          <End Type="Orden2GoModel.Carrito" Role="Carrito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="idEmpresa" />
+            </Principal>
+            <Dependent Role="Carrito">
+              <PropertyRef Name="idEmpresa" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -308,6 +344,7 @@
           <EntitySetMapping Name="Carrito">
             <EntityTypeMapping TypeName="Orden2GoModel.Carrito">
               <MappingFragment StoreEntitySet="Carrito">
+                <ScalarProperty Name="idEmpresa" ColumnName="idEmpresa" />
                 <ScalarProperty Name="total" ColumnName="total" />
                 <ScalarProperty Name="precio" ColumnName="precio" />
                 <ScalarProperty Name="cantidad" ColumnName="cantidad" />

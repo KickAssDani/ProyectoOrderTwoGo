@@ -153,6 +153,7 @@ namespace ProyectoOrderTwoGo.Controllers
                     }
                     else
                     {
+                        Session["id"] = UserDatails.idUsuario;
                         Session["user"] = UserDatails.NombreUsuario;
                         Session["Rol"] = UserDatails.idRol;
                         Session["Empresa"] = UserDatails.idEmpresa;
