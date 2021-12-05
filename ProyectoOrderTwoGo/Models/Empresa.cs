@@ -11,10 +11,7 @@ namespace ProyectoOrderTwoGo.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-    using System.Data;
-
+    
     public partial class Empresa
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,24 +20,10 @@ namespace ProyectoOrderTwoGo.Models
             this.Productos = new HashSet<Productos>();
             this.Usuarios = new HashSet<Usuarios>();
         }
-
-        public Empresa(DataRow r)
-        {
-            idEmpresa = Convert.ToInt32(r["idEmpresa"]);
-            nameEmpresa = Convert.ToString(r["nameEmpresa"]);
-            DescripcionEmpresa = Convert.ToString(r["DescripcionEmpresa"]);
-            numeroTelefono = Convert.ToInt32(r["idEmpresa"]);
-        }
-
+    
         public int idEmpresa { get; set; }
-        [Required]
-        [DisplayName("Nombre de la Empresa:")]
         public string nameEmpresa { get; set; }
-        [Required]
-        [DisplayName("Descripción de la Empresa:")]
         public string DescripcionEmpresa { get; set; }
-        [Required]
-        [DisplayName("Número telefónico:")]
         public Nullable<int> numeroTelefono { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

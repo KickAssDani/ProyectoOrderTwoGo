@@ -11,6 +11,9 @@
         <EntityTypeShape EntityType="Orden2GoModel.Usuarios" Width="1.5" PointX="3.125" PointY="3.875" IsExpanded="true" />
         <AssociationConnector Association="Orden2GoModel.FK_Productos_Empresa" ManuallyRouted="false" />
         <AssociationConnector Association="Orden2GoModel.FK_Usuarios_Empresa" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Orden2GoModel.Carrito" Width="1.5" PointX="5.375" PointY="3.5" />
+        <AssociationConnector Association="Orden2GoModel.FK_Carrito_Productos" />
+        <AssociationConnector Association="Orden2GoModel.FK_Carrito_Usuarios" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

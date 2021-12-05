@@ -5,6 +5,17 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="Orden2GoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Carrito">
+          <Key>
+            <PropertyRef Name="idCarrito" />
+          </Key>
+          <Property Name="idCarrito" Type="int" Nullable="false" />
+          <Property Name="idUsuario" Type="int" />
+          <Property Name="idProducto" Type="int" />
+          <Property Name="cantidad" Type="int" />
+          <Property Name="precio" Type="int" />
+          <Property Name="total" Type="int" />
+        </EntityType>
         <EntityType Name="Empresa">
           <Key>
             <PropertyRef Name="idEmpresa" />
@@ -43,6 +54,30 @@
           <Property Name="usuario" Type="varchar" MaxLength="50" />
           <Property Name="clave" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <Association Name="FK_Carrito_Productos">
+          <End Role="Productos" Type="Self.Productos" Multiplicity="0..1" />
+          <End Role="Carrito" Type="Self.Carrito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Productos">
+              <PropertyRef Name="idProduct" />
+            </Principal>
+            <Dependent Role="Carrito">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Carrito_Usuarios">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+          <End Role="Carrito" Type="Self.Carrito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="Carrito">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Productos_Empresa">
           <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
           <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
@@ -68,10 +103,19 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="Orden2GoModelStoreContainer">
+          <EntitySet Name="Carrito" EntityType="Self.Carrito" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Empresa" EntityType="Self.Empresa" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Productos" EntityType="Self.Productos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Carrito_Productos" Association="Self.FK_Carrito_Productos">
+            <End Role="Productos" EntitySet="Productos" />
+            <End Role="Carrito" EntitySet="Carrito" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Carrito_Usuarios" Association="Self.FK_Carrito_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Carrito" EntitySet="Carrito" />
+          </AssociationSet>
           <AssociationSet Name="FK_Productos_Empresa" Association="Self.FK_Productos_Empresa">
             <End Role="Empresa" EntitySet="Empresa" />
             <End Role="Productos" EntitySet="Productos" />
@@ -107,6 +151,7 @@
           <NavigationProperty Name="Empresa" Relationship="Self.FK_Productos_Empresa" FromRole="Productos" ToRole="Empresa" />
           <Property Name="stock" Type="Int32" />
           <Property Name="ImagenProducto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Carrito" Relationship="Orden2GoModel.FK_Carrito_Productos" FromRole="Productos" ToRole="Carrito" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
@@ -126,6 +171,7 @@
           <Property Name="usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="clave" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Empresa" Relationship="Self.FK_Usuarios_Empresa" FromRole="Usuarios" ToRole="Empresa" />
+          <NavigationProperty Name="Carrito" Relationship="Orden2GoModel.FK_Carrito_Usuarios" FromRole="Usuarios" ToRole="Carrito" />
         </EntityType>
         <Association Name="FK_Productos_Empresa">
           <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
@@ -164,7 +210,53 @@
             <End Role="Empresa" EntitySet="Empresa" />
             <End Role="Usuarios" EntitySet="Usuarios" />
           </AssociationSet>
+          <EntitySet Name="Carrito" EntityType="Orden2GoModel.Carrito" />
+          <AssociationSet Name="FK_Carrito_Productos" Association="Orden2GoModel.FK_Carrito_Productos">
+            <End Role="Productos" EntitySet="Productos" />
+            <End Role="Carrito" EntitySet="Carrito" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Carrito_Usuarios" Association="Orden2GoModel.FK_Carrito_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Carrito" EntitySet="Carrito" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Carrito">
+          <Key>
+            <PropertyRef Name="idCarrito" />
+          </Key>
+          <Property Name="idCarrito" Type="Int32" Nullable="false" />
+          <Property Name="idUsuario" Type="Int32" />
+          <Property Name="idProducto" Type="Int32" />
+          <Property Name="cantidad" Type="Int32" />
+          <Property Name="precio" Type="Int32" />
+          <Property Name="total" Type="Int32" />
+          <NavigationProperty Name="Productos" Relationship="Orden2GoModel.FK_Carrito_Productos" FromRole="Carrito" ToRole="Productos" />
+          <NavigationProperty Name="Usuarios" Relationship="Orden2GoModel.FK_Carrito_Usuarios" FromRole="Carrito" ToRole="Usuarios" />
+        </EntityType>
+        <Association Name="FK_Carrito_Productos">
+          <End Type="Orden2GoModel.Productos" Role="Productos" Multiplicity="0..1" />
+          <End Type="Orden2GoModel.Carrito" Role="Carrito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Productos">
+              <PropertyRef Name="idProduct" />
+            </Principal>
+            <Dependent Role="Carrito">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Carrito_Usuarios">
+          <End Type="Orden2GoModel.Usuarios" Role="Usuarios" Multiplicity="0..1" />
+          <End Type="Orden2GoModel.Carrito" Role="Carrito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="Carrito">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -210,6 +302,18 @@
                 <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
                 <ScalarProperty Name="usuario" ColumnName="usuario" />
                 <ScalarProperty Name="clave" ColumnName="clave" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Carrito">
+            <EntityTypeMapping TypeName="Orden2GoModel.Carrito">
+              <MappingFragment StoreEntitySet="Carrito">
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="idCarrito" ColumnName="idCarrito" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

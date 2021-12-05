@@ -2,6 +2,7 @@
 using ProyectoOrderTwoGo.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -36,6 +37,7 @@ namespace ProyectoOrderTwoGo.Controllers
             }
         }
 
+     
         public ActionResult AgregarProductos()
         {
             try
@@ -98,6 +100,13 @@ namespace ProyectoOrderTwoGo.Controllers
         {
             try
             {
+                string filename = Path.GetFileNameWithoutExtension(_produtos.Imagen.FileName);
+                string extensio = Path.GetExtension(_produtos.Imagen.FileName);
+                filename = filename + DateTime.Now.ToString("yymmssfff") + extensio;
+                _produtos.ImagenProducto = "~/images/"+filename;
+                filename = Path.Combine(Server.MapPath("~/images/"), filename);
+                _produtos.Imagen.SaveAs(filename);
+                
                 _context.Productos.Add(_produtos);
                 _context.SaveChanges();
                 TempData["Mensaje"] = "Se agregó correctamente el dato.";

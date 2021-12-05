@@ -29,5 +29,6 @@ namespace ProyectoOrderTwoGo.Models
         public virtual DbSet<Productos> Productos { get; set; }
         public virtual DbSet<Roles> Roles { get; set; }
         public virtual DbSet<Usuarios> Usuarios { get; set; }
+        public virtual DbSet<Carrito> Carrito { get; set; }
     }
 }

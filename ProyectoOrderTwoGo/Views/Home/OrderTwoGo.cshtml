@@ -6,36 +6,6 @@
 @using PagedList.Mvc;
 @using PagedList;
 
-
-<style>
-    .ul.pagination {
-        display: inline-block;
-        padding: 0;
-        margin: 0;
-    }
-
-    ul.pagination li {
-        display: inline;
-    }
-
-        ul.pagination li a {
-            color: black;
-            float: left;
-            padding: 8px 16px;
-            text-decoration: none;
-            transition: background-color .3s;
-        }
-
-            ul.pagination li a.active {
-                background-color: #4CAF50;
-                color: white;
-            }
-
-            ul.pagination li a:hover:not(.active) {
-                background-color: #ddd;
-            }
-</style>
-
 <div class="container" id="contenedor">
     <div class="row">
         <div class="col-md-2" id="lateral">
@@ -55,6 +25,7 @@
                         <div class="col-md-4">
                             <article class="card">
                                 <section class="card-header">
+
                                     <span class=""><strong>@e.idProducto</strong></span><span>@e.NombreProducto</span>
                                 </section>
                                 <section class="card-body">
@@ -62,8 +33,7 @@
                                     <label>Precio:</label>
                                     @e.Precio
                                     <section class="row">
-                                        <div class="col-md-6">@Html.ActionLink("Info", "Editar", new { id = e.idProducto, idEmpresa = e.idEmpresa }, new { @class = "btn btn-block btn-warning col-md-12" })</div>
-                                        <div class="col-md-6">@Html.ActionLink("Carrito", "Editar", new { id = e.idEmpresa }, new { @class = "btn btn-block btn-warning col-md-12" })</div>
+                                        <div class="col-md-6">@Html.ActionLink("Carrito", "Editar", new { id = e.idProducto}, new { @class = "btn btn-block btn-warning col-md-12" })</div>
                                     </section>
                                 </section>
                             </article>
@@ -84,4 +54,3 @@
         </section>
     </section>
 </div>
-

@@ -52,5 +52,16 @@ namespace ProyectoOrderTwoGo.Bussinees
             _ap.Fill(_dT);
             return _dT;
         }
+        public DataTable obtenerInfo(int id)
+        {
+            string _sentencia = "select ";
+            SqlCommand _command = new SqlCommand(_sentencia, _con);
+            _command.CommandType = CommandType.Text;
+            SqlDataAdapter _ap = new SqlDataAdapter(_command);
+            DataTable _dT = new DataTable();
+            _ap.Fill(_dT);
+            return _dT;
+        }
+
     }
 }
