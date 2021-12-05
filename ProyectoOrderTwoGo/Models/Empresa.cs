@@ -23,18 +23,21 @@ namespace ProyectoOrderTwoGo.Models
             this.Productos = new HashSet<Productos>();
             this.Usuarios = new HashSet<Usuarios>();
         }
+
         public Empresa(DataRow r)
         {
             idEmpresa = Convert.ToInt32(r["idEmpresa"]);
             nameEmpresa = Convert.ToString(r["nameEmpresa"]);
-            numeroTelefono = Convert.ToInt32(r["numeroTelefono"]);
+            DescripcionEmpresa = Convert.ToString(r["DescripcionEmpresa"]);
+            numeroTelefono = Convert.ToInt32(r["idEmpresa"]);
         }
+
         public int idEmpresa { get; set; }
         [Required]
-        [DisplayName("Nombre de Empresa:")]
+        [DisplayName("Nombre de la Empresa:")]
         public string nameEmpresa { get; set; }
         [Required]
-        [DisplayName("Descripción de Empresa:")]
+        [DisplayName("Descripción de la Empresa:")]
         public string DescripcionEmpresa { get; set; }
         [Required]
         [DisplayName("Número telefónico:")]

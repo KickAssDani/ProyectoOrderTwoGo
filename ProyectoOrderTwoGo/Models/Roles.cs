@@ -11,11 +11,16 @@ namespace ProyectoOrderTwoGo.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
     using System.Data;
 
     public partial class Roles
     {
+
         public int idRol { get; set; }
+        [Required]
+        [DisplayName("Nombre del Rol")]
         public string nameRol { get; set; }
 
         public Roles(DataRow r)
@@ -24,4 +29,6 @@ namespace ProyectoOrderTwoGo.Models
             nameRol = Convert.ToString(r["nameRol"]);
         }
     }
+
+    
 }

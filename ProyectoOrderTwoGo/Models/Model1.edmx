@@ -22,6 +22,8 @@
           <Property Name="ProductNam" Type="nvarchar" MaxLength="50" />
           <Property Name="idEmpresa" Type="int" />
           <Property Name="precio" Type="int" />
+          <Property Name="stock" Type="int" />
+          <Property Name="ImagenProducto" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
@@ -103,6 +105,8 @@
           <Property Name="idEmpresa" Type="Int32" />
           <Property Name="precio" Type="Int32" />
           <NavigationProperty Name="Empresa" Relationship="Self.FK_Productos_Empresa" FromRole="Productos" ToRole="Empresa" />
+          <Property Name="stock" Type="Int32" />
+          <Property Name="ImagenProducto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
@@ -180,6 +184,8 @@
           <EntitySetMapping Name="Productos">
             <EntityTypeMapping TypeName="Orden2GoModel.Productos">
               <MappingFragment StoreEntitySet="Productos">
+                <ScalarProperty Name="ImagenProducto" ColumnName="ImagenProducto" />
+                <ScalarProperty Name="stock" ColumnName="stock" />
                 <ScalarProperty Name="idProduct" ColumnName="idProduct" />
                 <ScalarProperty Name="ProductNam" ColumnName="ProductNam" />
                 <ScalarProperty Name="idEmpresa" ColumnName="idEmpresa" />

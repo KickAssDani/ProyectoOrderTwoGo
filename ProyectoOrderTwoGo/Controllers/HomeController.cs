@@ -6,6 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList.Mvc;
+using PagedList;
+using System.Web.UI;
 
 namespace ProyectoOrderTwoGo.Controllers
 {
@@ -22,15 +25,22 @@ namespace ProyectoOrderTwoGo.Controllers
         {
             return View();
         }
-        public ActionResult OrderTwoGo()
+        public ActionResult OrderTwoGo(int? page)
         {
              try
             {
+                int pageSize = 24;
+                int pageIndex = 1;
+                pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+                IPagedList<ProductosRepository> productos = null;
+
                 ListaEmpresas _productos = new ListaEmpresas();
                 List<ProductosRepository> _repository = _productos.ObtenerInfoProductos();
-                ViewBag.Productos = _repository;
+                ViewBag.Productos = _repository.ToList().ToPagedList(pageIndex, pageSize);
 
-                return View();
+                productos = ViewBag.Productos;
+
+                return View(productos);
             }
             catch (Exception ex)
             {

@@ -1,9 +1,40 @@
-﻿@model IEnumerable<ProyectoOrderTwoGo.Datos.ProductosRepository>
+﻿@model  PagedList.IPagedList<ProyectoOrderTwoGo.Datos.ProductosRepository>
 @{
     ViewBag.Title = "OrderTwoGo";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@using PagedList.Mvc;
+@using PagedList;
 
+
+<style>
+    .ul.pagination {
+        display: inline-block;
+        padding: 0;
+        margin: 0;
+    }
+
+    ul.pagination li {
+        display: inline;
+    }
+
+        ul.pagination li a {
+            color: black;
+            float: left;
+            padding: 8px 16px;
+            text-decoration: none;
+            transition: background-color .3s;
+        }
+
+            ul.pagination li a.active {
+                background-color: #4CAF50;
+                color: white;
+            }
+
+            ul.pagination li a:hover:not(.active) {
+                background-color: #ddd;
+            }
+</style>
 
 <div class="container" id="contenedor">
     <div class="row">
@@ -11,13 +42,6 @@
             <div class="row">
                 <div class="col-md-10" id="anuncios">
                     <aside>
-                        <h3>Categorias</h3>
-                        @foreach (var i in ViewBag.Productos)
-                        {
-                            <ul class="navbar-nav flex-grow-1">
-                                <li><a href="#" class="nav-link text-dark">@i.NombreProducto</a></li>
-                            </ul>
-                        }
                     </aside>
                 </div>
             </div>
@@ -51,3 +75,13 @@
         </div>
     </div>
 </div>
+<div class="container">
+    <section class="row">
+        <section class="card offset-md-6">
+            <section class="">
+                @Html.PagedListPager(Model, page => Url.Action("OrderTwoGo", new { page }))
+            </section>
+        </section>
+    </section>
+</div>
+
