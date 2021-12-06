@@ -15,7 +15,6 @@
           <Property Name="idEmpresa" Type="int" />
           <Property Name="cantidad" Type="int" />
           <Property Name="precio" Type="int" />
-          <Property Name="total" Type="int" />
         </EntityType>
         <EntityType Name="Empresa">
           <Key>
@@ -25,6 +24,25 @@
           <Property Name="nameEmpresa" Type="nvarchar" MaxLength="50" />
           <Property Name="DescripcionEmpresa" Type="varchar" MaxLength="250" />
           <Property Name="numeroTelefono" Type="int" />
+        </EntityType>
+        <EntityType Name="Factura">
+          <Key>
+            <PropertyRef Name="idFactura" />
+          </Key>
+          <Property Name="idFactura" Type="int" Nullable="false" />
+          <Property Name="idUsuario" Type="int" />
+          <Property Name="Monto" Type="int" />
+        </EntityType>
+        <EntityType Name="FacturaDetalle">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idFactura" Type="int" />
+          <Property Name="idProducto" Type="int" />
+          <Property Name="idEmpresa" Type="int" />
+          <Property Name="cantidad" Type="int" />
+          <Property Name="precio" Type="int" />
         </EntityType>
         <EntityType Name="Productos">
           <Key>
@@ -53,7 +71,7 @@
           <Property Name="idEmpresa" Type="int" />
           <Property Name="NombreUsuario" Type="varchar" MaxLength="50" />
           <Property Name="usuario" Type="varchar" MaxLength="50" />
-          <Property Name="clave" Type="nvarchar" MaxLength="50" />
+          <Property Name="clave" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <Association Name="FK_Carrito_Empresa">
           <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
@@ -91,6 +109,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Factura_Usuarios">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+          <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="Factura">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FacturaDetalle_Empresa">
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
+          <End Role="FacturaDetalle" Type="Self.FacturaDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="idEmpresa" />
+            </Principal>
+            <Dependent Role="FacturaDetalle">
+              <PropertyRef Name="idEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FacturaDetalle_Factura">
+          <End Role="Factura" Type="Self.Factura" Multiplicity="0..1" />
+          <End Role="FacturaDetalle" Type="Self.FacturaDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Factura">
+              <PropertyRef Name="idFactura" />
+            </Principal>
+            <Dependent Role="FacturaDetalle">
+              <PropertyRef Name="idFactura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FacturaDetalle_Productos">
+          <End Role="Productos" Type="Self.Productos" Multiplicity="0..1" />
+          <End Role="FacturaDetalle" Type="Self.FacturaDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Productos">
+              <PropertyRef Name="idProduct" />
+            </Principal>
+            <Dependent Role="FacturaDetalle">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Productos_Empresa">
           <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
           <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
@@ -115,9 +181,23 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Usuarios_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="idRol" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="idRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Orden2GoModelStoreContainer">
           <EntitySet Name="Carrito" EntityType="Self.Carrito" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Empresa" EntityType="Self.Empresa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Factura" EntityType="Self.Factura" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FacturaDetalle" EntityType="Self.FacturaDetalle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Productos" EntityType="Self.Productos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
@@ -133,12 +213,32 @@
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="Carrito" EntitySet="Carrito" />
           </AssociationSet>
+          <AssociationSet Name="FK_Factura_Usuarios" Association="Self.FK_Factura_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Factura" EntitySet="Factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FacturaDetalle_Empresa" Association="Self.FK_FacturaDetalle_Empresa">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="FacturaDetalle" EntitySet="FacturaDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FacturaDetalle_Factura" Association="Self.FK_FacturaDetalle_Factura">
+            <End Role="Factura" EntitySet="Factura" />
+            <End Role="FacturaDetalle" EntitySet="FacturaDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FacturaDetalle_Productos" Association="Self.FK_FacturaDetalle_Productos">
+            <End Role="Productos" EntitySet="Productos" />
+            <End Role="FacturaDetalle" EntitySet="FacturaDetalle" />
+          </AssociationSet>
           <AssociationSet Name="FK_Productos_Empresa" Association="Self.FK_Productos_Empresa">
             <End Role="Empresa" EntitySet="Empresa" />
             <End Role="Productos" EntitySet="Productos" />
           </AssociationSet>
           <AssociationSet Name="FK_Usuarios_Empresa" Association="Self.FK_Usuarios_Empresa">
             <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuarios_Roles" Association="Self.FK_Usuarios_Roles">
+            <End Role="Roles" EntitySet="Roles" />
             <End Role="Usuarios" EntitySet="Usuarios" />
           </AssociationSet>
         </EntityContainer>
@@ -157,6 +257,7 @@
           <Property Name="DescripcionEmpresa" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="numeroTelefono" Type="Int32" />
           <NavigationProperty Name="Carrito" Relationship="Orden2GoModel.FK_Carrito_Empresa" FromRole="Empresa" ToRole="Carrito" />
+          <NavigationProperty Name="FacturaDetalle" Relationship="Orden2GoModel.FK_FacturaDetalle_Empresa" FromRole="Empresa" ToRole="FacturaDetalle" />
         </EntityType>
         <EntityType Name="Productos">
           <Key>
@@ -170,6 +271,7 @@
           <Property Name="stock" Type="Int32" />
           <Property Name="ImagenProducto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Carrito" Relationship="Orden2GoModel.FK_Carrito_Productos" FromRole="Productos" ToRole="Carrito" />
+          <NavigationProperty Name="FacturaDetalle" Relationship="Orden2GoModel.FK_FacturaDetalle_Productos" FromRole="Productos" ToRole="FacturaDetalle" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
@@ -177,6 +279,7 @@
           </Key>
           <Property Name="idRol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nameRol" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Usuarios" Relationship="Orden2GoModel.FK_Usuarios_Roles" FromRole="Roles" ToRole="Usuarios" />
         </EntityType>
         <EntityType Name="Usuarios">
           <Key>
@@ -187,9 +290,11 @@
           <Property Name="idEmpresa" Type="Int32" />
           <Property Name="NombreUsuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="clave" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="clave" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Empresa" Relationship="Self.FK_Usuarios_Empresa" FromRole="Usuarios" ToRole="Empresa" />
           <NavigationProperty Name="Carrito" Relationship="Orden2GoModel.FK_Carrito_Usuarios" FromRole="Usuarios" ToRole="Carrito" />
+          <NavigationProperty Name="Factura" Relationship="Orden2GoModel.FK_Factura_Usuarios" FromRole="Usuarios" ToRole="Factura" />
+          <NavigationProperty Name="Roles" Relationship="Orden2GoModel.FK_Usuarios_Roles" FromRole="Usuarios" ToRole="Roles" />
         </EntityType>
         <Association Name="FK_Productos_Empresa">
           <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
@@ -241,6 +346,28 @@
             <End Role="Empresa" EntitySet="Empresa" />
             <End Role="Carrito" EntitySet="Carrito" />
           </AssociationSet>
+          <EntitySet Name="Factura" EntityType="Orden2GoModel.Factura" />
+          <EntitySet Name="FacturaDetalle" EntityType="Orden2GoModel.FacturaDetalle" />
+          <AssociationSet Name="FK_FacturaDetalle_Factura" Association="Orden2GoModel.FK_FacturaDetalle_Factura">
+            <End Role="Factura" EntitySet="Factura" />
+            <End Role="FacturaDetalle" EntitySet="FacturaDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FacturaDetalle_Empresa" Association="Orden2GoModel.FK_FacturaDetalle_Empresa">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="FacturaDetalle" EntitySet="FacturaDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FacturaDetalle_Productos" Association="Orden2GoModel.FK_FacturaDetalle_Productos">
+            <End Role="Productos" EntitySet="Productos" />
+            <End Role="FacturaDetalle" EntitySet="FacturaDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Factura_Usuarios" Association="Orden2GoModel.FK_Factura_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Factura" EntitySet="Factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuarios_Roles" Association="Orden2GoModel.FK_Usuarios_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Carrito">
           <Key>
@@ -290,6 +417,90 @@
             </Principal>
             <Dependent Role="Carrito">
               <PropertyRef Name="idEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Factura">
+          <Key>
+            <PropertyRef Name="idFactura" />
+          </Key>
+          <Property Name="idFactura" Type="Int32" Nullable="false" />
+          <Property Name="idUsuario" Type="Int32" />
+          <Property Name="Monto" Type="Int32" />
+          <NavigationProperty Name="FacturaDetalle" Relationship="Orden2GoModel.FK_FacturaDetalle_Factura" FromRole="Factura" ToRole="FacturaDetalle" />
+          <NavigationProperty Name="Usuarios" Relationship="Orden2GoModel.FK_Factura_Usuarios" FromRole="Factura" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="FacturaDetalle">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idFactura" Type="Int32" />
+          <Property Name="idProducto" Type="Int32" />
+          <Property Name="idEmpresa" Type="Int32" />
+          <Property Name="cantidad" Type="Int32" />
+          <Property Name="precio" Type="Int32" />
+          <NavigationProperty Name="Factura" Relationship="Orden2GoModel.FK_FacturaDetalle_Factura" FromRole="FacturaDetalle" ToRole="Factura" />
+          <NavigationProperty Name="Empresa" Relationship="Orden2GoModel.FK_FacturaDetalle_Empresa" FromRole="FacturaDetalle" ToRole="Empresa" />
+          <NavigationProperty Name="Productos" Relationship="Orden2GoModel.FK_FacturaDetalle_Productos" FromRole="FacturaDetalle" ToRole="Productos" />
+        </EntityType>
+        <Association Name="FK_FacturaDetalle_Factura">
+          <End Type="Orden2GoModel.Factura" Role="Factura" Multiplicity="0..1" />
+          <End Type="Orden2GoModel.FacturaDetalle" Role="FacturaDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Factura">
+              <PropertyRef Name="idFactura" />
+            </Principal>
+            <Dependent Role="FacturaDetalle">
+              <PropertyRef Name="idFactura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FacturaDetalle_Empresa">
+          <End Type="Orden2GoModel.Empresa" Role="Empresa" Multiplicity="0..1" />
+          <End Type="Orden2GoModel.FacturaDetalle" Role="FacturaDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="idEmpresa" />
+            </Principal>
+            <Dependent Role="FacturaDetalle">
+              <PropertyRef Name="idEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FacturaDetalle_Productos">
+          <End Type="Orden2GoModel.Productos" Role="Productos" Multiplicity="0..1" />
+          <End Type="Orden2GoModel.FacturaDetalle" Role="FacturaDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Productos">
+              <PropertyRef Name="idProduct" />
+            </Principal>
+            <Dependent Role="FacturaDetalle">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Factura_Usuarios">
+          <End Type="Orden2GoModel.Usuarios" Role="Usuarios" Multiplicity="0..1" />
+          <End Type="Orden2GoModel.Factura" Role="Factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="Factura">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuarios_Roles">
+          <End Type="Orden2GoModel.Roles" Role="Roles" Multiplicity="1" />
+          <End Type="Orden2GoModel.Usuarios" Role="Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="idRol" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="idRol" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -345,12 +556,32 @@
             <EntityTypeMapping TypeName="Orden2GoModel.Carrito">
               <MappingFragment StoreEntitySet="Carrito">
                 <ScalarProperty Name="idEmpresa" ColumnName="idEmpresa" />
-                <ScalarProperty Name="total" ColumnName="total" />
                 <ScalarProperty Name="precio" ColumnName="precio" />
                 <ScalarProperty Name="cantidad" ColumnName="cantidad" />
                 <ScalarProperty Name="idProducto" ColumnName="idProducto" />
                 <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
                 <ScalarProperty Name="idCarrito" ColumnName="idCarrito" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Factura">
+            <EntityTypeMapping TypeName="Orden2GoModel.Factura">
+              <MappingFragment StoreEntitySet="Factura">
+                <ScalarProperty Name="Monto" ColumnName="Monto" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="idFactura" ColumnName="idFactura" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FacturaDetalle">
+            <EntityTypeMapping TypeName="Orden2GoModel.FacturaDetalle">
+              <MappingFragment StoreEntitySet="FacturaDetalle">
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="idEmpresa" ColumnName="idEmpresa" />
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+                <ScalarProperty Name="idFactura" ColumnName="idFactura" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

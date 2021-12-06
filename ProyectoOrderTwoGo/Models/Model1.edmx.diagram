@@ -4,17 +4,24 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="8d8360ccbbc54804bed1b81c76c814e4" Name="Diagram1">
+      <Diagram DiagramId="8d8360ccbbc54804bed1b81c76c814e4" Name="Diagram1" ZoomLevel="81">
         <EntityTypeShape EntityType="Orden2GoModel.Empresa" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Orden2GoModel.Productos" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Orden2GoModel.Roles" Width="1.5" PointX="5.375" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Orden2GoModel.Usuarios" Width="1.5" PointX="3.125" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Orden2GoModel.Roles" Width="1.5" PointX="5.125" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Orden2GoModel.Usuarios" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
         <AssociationConnector Association="Orden2GoModel.FK_Productos_Empresa" ManuallyRouted="false" />
         <AssociationConnector Association="Orden2GoModel.FK_Usuarios_Empresa" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="Orden2GoModel.Carrito" Width="1.5" PointX="5.375" PointY="3.5" />
+        <EntityTypeShape EntityType="Orden2GoModel.Carrito" Width="1.5" PointX="5.5" PointY="3.75" />
         <AssociationConnector Association="Orden2GoModel.FK_Carrito_Productos" />
         <AssociationConnector Association="Orden2GoModel.FK_Carrito_Usuarios" />
         <AssociationConnector Association="Orden2GoModel.FK_Carrito_Empresa" />
+        <EntityTypeShape EntityType="Orden2GoModel.Factura" Width="1.5" PointX="7.125" PointY="1.125" />
+        <EntityTypeShape EntityType="Orden2GoModel.FacturaDetalle" Width="1.5" PointX="10" PointY="1.75" />
+        <AssociationConnector Association="Orden2GoModel.FK_FacturaDetalle_Factura" />
+        <AssociationConnector Association="Orden2GoModel.FK_FacturaDetalle_Empresa" />
+        <AssociationConnector Association="Orden2GoModel.FK_FacturaDetalle_Productos" />
+        <AssociationConnector Association="Orden2GoModel.FK_Factura_Usuarios" />
+        <AssociationConnector Association="Orden2GoModel.FK_Usuarios_Roles" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

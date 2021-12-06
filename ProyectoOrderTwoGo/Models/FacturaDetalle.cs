@@ -12,18 +12,17 @@ namespace ProyectoOrderTwoGo.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Roles
+    public partial class FacturaDetalle
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Roles()
-        {
-            this.Usuarios = new HashSet<Usuarios>();
-        }
+        public int id { get; set; }
+        public Nullable<int> idFactura { get; set; }
+        public Nullable<int> idProducto { get; set; }
+        public Nullable<int> idEmpresa { get; set; }
+        public Nullable<int> cantidad { get; set; }
+        public Nullable<int> precio { get; set; }
     
-        public int idRol { get; set; }
-        public string nameRol { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Usuarios> Usuarios { get; set; }
+        public virtual Factura Factura { get; set; }
+        public virtual Empresa Empresa { get; set; }
+        public virtual Productos Productos { get; set; }
     }
 }

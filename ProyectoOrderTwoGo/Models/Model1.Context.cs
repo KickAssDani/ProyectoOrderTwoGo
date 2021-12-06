@@ -30,5 +30,7 @@ namespace ProyectoOrderTwoGo.Models
         public virtual DbSet<Roles> Roles { get; set; }
         public virtual DbSet<Usuarios> Usuarios { get; set; }
         public virtual DbSet<Carrito> Carrito { get; set; }
+        public virtual DbSet<Factura> Factura { get; set; }
+        public virtual DbSet<FacturaDetalle> FacturaDetalle { get; set; }
     }
 }
