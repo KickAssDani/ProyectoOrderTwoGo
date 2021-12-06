@@ -9,7 +9,7 @@
           <Key>
             <PropertyRef Name="idCarrito" />
           </Key>
-          <Property Name="idCarrito" Type="int" Nullable="false" />
+          <Property Name="idCarrito" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idUsuario" Type="int" />
           <Property Name="idProducto" Type="int" />
           <Property Name="idEmpresa" Type="int" />

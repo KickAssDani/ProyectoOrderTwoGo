@@ -77,5 +77,24 @@ namespace ProyectoOrderTwoGo.Controllers
             }
         }
 
+     
+        public ActionResult Productos() {
+
+            ListaEmpresas _productos = new ListaEmpresas();
+            List<CarritoRepository> _carrito = _productos.Carrito(int.Parse(Session["id"].ToString()));
+
+            ViewBag.Carrito = _carrito;
+            return View();
+        }
+        [HttpPost]
+        public ActionResult RegistrarCompra() {
+
+            ListaEmpresas _productos = new ListaEmpresas();
+            List<CarritoRepository> _carrito = _productos.Carrito(int.Parse(Session["id"].ToString()));
+
+            return View();
+        }
+
+     
     }
 }

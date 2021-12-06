@@ -125,6 +125,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductosController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Datos\CarritoRepository.cs" />
     <Compile Include="Datos\ProductosRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -185,6 +186,7 @@
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Productos\EditarProducto.cshtml" />
     <Content Include="Views\Home\OrderTwoGo.cshtml" />
+    <Content Include="Views\Home\Productos.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

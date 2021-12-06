@@ -51,6 +51,19 @@ namespace ProyectoOrderTwoGo.Bussinees
             }
             return _listaProductos;
         }
-        
+        public List<CarritoRepository> Carrito(int id)
+        {
+
+            ObtenerListaEmpresas _op = new ObtenerListaEmpresas();
+            DataTable _dT = _op.Carrito(id);
+            List<CarritoRepository> _listaProductos = new List<CarritoRepository>();
+
+            foreach (DataRow r in _dT.Rows)
+            {
+                CarritoRepository _repository = new CarritoRepository(r);
+                _listaProductos.Add(_repository);
+            }
+            return _listaProductos;
+        }
     }
 }

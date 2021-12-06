@@ -1,0 +1,37 @@
+﻿@model ProyectoOrderTwoGo.Datos.CarritoRepository
+@{
+    ViewBag.Title = "Productos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Productos</h2>
+
+
+@if (ViewBag.Carrito != null)
+{
+    <table>
+        <thead>
+            <tr>
+                <td>Nombre Producto</td>
+            </tr>
+        </thead>
+
+        @foreach (var i in ViewBag.Carrito)
+        {
+            <tbody>
+                <tr>
+                    @Html.HiddenFor(m => m.idProducto)
+                    @Html.HiddenFor(m => m.idEmpresa)
+                    <td>@i.NombreProducto</td>
+                    <td>@Html.EditorFor(m => m.NombreProducto)</td>
+                </tr>
+            </tbody>
+        }
+    </table>
+}
+else
+{
+    <h1>No hay productos en el carrito.</h1>
+}
+
+@Html.ActionLink("Registrar compra", "Facturar", new { @class = "btn btn-block btn-warning col-md-12 fas fa-shopping-cart" })

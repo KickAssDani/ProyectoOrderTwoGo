@@ -52,11 +52,16 @@ namespace ProyectoOrderTwoGo.Bussinees
             _ap.Fill(_dT);
             return _dT;
         }
-        public DataTable obtenerInfo(int id)
+        public DataTable Carrito(int id)
         {
-            string _sentencia = "select ";
+            string _sentencia = "select Carrito.idProducto,Productos.ProductNam ,Carrito.idEmpresa, Empresa.nameEmpresa, Carrito.cantidad, Carrito.precio, Productos.stock" +
+                "from Carrito " +
+                "inner join Productos on Carrito.idProducto = Productos.idProduct " +
+                "inner join Empresa on Carrito.idEmpresa = Empresa.idEmpresa " +
+                "where idUsuario = @idUsuario";
             SqlCommand _command = new SqlCommand(_sentencia, _con);
             _command.CommandType = CommandType.Text;
+            _command.Parameters.AddWithValue("@idUsuario", id);
             SqlDataAdapter _ap = new SqlDataAdapter(_command);
             DataTable _dT = new DataTable();
             _ap.Fill(_dT);
