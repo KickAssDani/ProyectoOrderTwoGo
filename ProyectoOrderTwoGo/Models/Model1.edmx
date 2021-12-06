@@ -378,7 +378,6 @@
           <Property Name="idProducto" Type="Int32" />
           <Property Name="cantidad" Type="Int32" />
           <Property Name="precio" Type="Int32" />
-          <Property Name="total" Type="Int32" />
           <NavigationProperty Name="Productos" Relationship="Orden2GoModel.FK_Carrito_Productos" FromRole="Carrito" ToRole="Productos" />
           <NavigationProperty Name="Usuarios" Relationship="Orden2GoModel.FK_Carrito_Usuarios" FromRole="Carrito" ToRole="Usuarios" />
           <Property Name="idEmpresa" Type="Int32" />

@@ -19,7 +19,6 @@ namespace ProyectoOrderTwoGo.Models
         public Nullable<int> idProducto { get; set; }
         public Nullable<int> cantidad { get; set; }
         public Nullable<int> precio { get; set; }
-        public Nullable<int> total { get; set; }
         public Nullable<int> idEmpresa { get; set; }
     
         public virtual Productos Productos { get; set; }

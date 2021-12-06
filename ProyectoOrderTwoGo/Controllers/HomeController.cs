@@ -61,7 +61,6 @@ namespace ProyectoOrderTwoGo.Controllers
                 _carrito.idEmpresa = productos.idEmpresa;
                 _carrito.precio = productos.precio;
                 _carrito.cantidad = 1;
-                _carrito.total = (productos.precio * 1);
                 _carrito.idUsuario = int.Parse(Session["id"].ToString());
 
                 _context.Carrito.Add(_carrito);

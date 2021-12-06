@@ -11,7 +11,10 @@ namespace ProyectoOrderTwoGo.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+    using System.Web;
+
     public partial class Productos
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,15 +23,25 @@ namespace ProyectoOrderTwoGo.Models
             this.Carrito = new HashSet<Carrito>();
             this.FacturaDetalle = new HashSet<FacturaDetalle>();
         }
-    
+
         public int idProduct { get; set; }
+        [Required]
+        [DisplayName("Nombre del Producto:")]
         public string ProductNam { get; set; }
+        [Required]
+        [DisplayName("Empresa:")]
         public Nullable<int> idEmpresa { get; set; }
+        [Required]
+        [DisplayName("Precio")]
         public Nullable<int> precio { get; set; }
+        [Required]
+        [DisplayName("Cantidad de Productos:")]
         public Nullable<int> stock { get; set; }
         public string ImagenProducto { get; set; }
-    
+
         public virtual Empresa Empresa { get; set; }
+        public HttpPostedFileBase Imagen { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Carrito> Carrito { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
