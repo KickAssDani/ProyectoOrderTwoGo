@@ -85,13 +85,13 @@ namespace ProyectoOrderTwoGo.Controllers
             ViewBag.Carrito = _carrito;
             return View();
         }
-        [HttpPost]
+        
         public ActionResult RegistrarCompra() {
 
             ListaEmpresas _productos = new ListaEmpresas();
-            List<CarritoRepository> _carrito = _productos.Carrito(int.Parse(Session["id"].ToString()));
+            _productos.Registrar(int.Parse(Session["id"].ToString()));
 
-            return View();
+            return RedirectToAction("OrderTwoGo");
         }
 
      

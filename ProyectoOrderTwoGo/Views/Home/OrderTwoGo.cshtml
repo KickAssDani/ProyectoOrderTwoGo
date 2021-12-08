@@ -19,7 +19,7 @@
                         }
                         else
                         {
-                            @Html.ActionLink("a", "Productos", new { @class = "btn btn-block btn-warning col-md-12 fas fa-shopping-cart" })
+                            @Html.ActionLink("a", "Productos", new {id = Session["id"] }, new { @class = "btn btn-block btn-warning col-md-12 fas fa-shopping-cart" })
                            
                         }
                     </aside>

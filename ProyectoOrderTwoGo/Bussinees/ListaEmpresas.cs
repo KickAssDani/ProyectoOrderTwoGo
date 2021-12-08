@@ -3,6 +3,7 @@ using ProyectoOrderTwoGo.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
@@ -10,6 +11,13 @@ namespace ProyectoOrderTwoGo.Bussinees
 {
     public class ListaEmpresas
     {
+        string _conexion = "";
+        SqlConnection _con;
+        public ListaEmpresas()
+        {
+            _conexion = "server=EDUARDOCHAVES\\SQLEXPRESS;initial catalog=Orden2Go;integrated security=True;";
+            _con = new SqlConnection(_conexion);
+        }
         public List<Empresa> Obtener()
         {
             ObtenerListaEmpresas _op = new ObtenerListaEmpresas();
@@ -64,6 +72,19 @@ namespace ProyectoOrderTwoGo.Bussinees
                 _listaProductos.Add(_repository);
             }
             return _listaProductos;
+        }
+
+        public void Registrar(int id) {
+
+            ObtenerListaEmpresas _op = new ObtenerListaEmpresas();
+            _op.Registro(id);
+
+        }
+
+        public DataTable RegistrarFactura(DataTable _dt) {
+
+
+            return _dt;
         }
     }
 }
