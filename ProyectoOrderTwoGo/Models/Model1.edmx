@@ -193,6 +193,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="RegistroFactura" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="opcion" Type="int" Mode="In" />
+          <Parameter Name="idFactura" Type="int" Mode="In" />
+          <Parameter Name="total" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="Orden2GoModelStoreContainer">
           <EntitySet Name="Carrito" EntityType="Self.Carrito" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Empresa" EntityType="Self.Empresa" Schema="dbo" store:Type="Tables" />
@@ -368,6 +373,11 @@
             <End Role="Roles" EntitySet="Roles" />
             <End Role="Usuarios" EntitySet="Usuarios" />
           </AssociationSet>
+          <FunctionImport Name="RegistroFactura">
+            <Parameter Name="opcion" Mode="In" Type="Int32" />
+            <Parameter Name="idFactura" Mode="In" Type="Int32" />
+            <Parameter Name="total" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Carrito">
           <Key>
@@ -584,6 +594,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="RegistroFactura" FunctionName="Orden2GoModel.Store.RegistroFactura" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

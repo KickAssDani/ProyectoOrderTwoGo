@@ -12,6 +12,8 @@ namespace ProyectoOrderTwoGo.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class Orden2GoEntities : DbContext
     {
@@ -32,5 +34,22 @@ namespace ProyectoOrderTwoGo.Models
         public virtual DbSet<Carrito> Carrito { get; set; }
         public virtual DbSet<Factura> Factura { get; set; }
         public virtual DbSet<FacturaDetalle> FacturaDetalle { get; set; }
+    
+        public virtual int RegistroFactura(Nullable<int> opcion, Nullable<int> idFactura, Nullable<int> total)
+        {
+            var opcionParameter = opcion.HasValue ?
+                new ObjectParameter("opcion", opcion) :
+                new ObjectParameter("opcion", typeof(int));
+    
+            var idFacturaParameter = idFactura.HasValue ?
+                new ObjectParameter("idFactura", idFactura) :
+                new ObjectParameter("idFactura", typeof(int));
+    
+            var totalParameter = total.HasValue ?
+                new ObjectParameter("total", total) :
+                new ObjectParameter("total", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegistroFactura", opcionParameter, idFacturaParameter, totalParameter);
+        }
     }
 }

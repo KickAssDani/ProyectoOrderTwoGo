@@ -55,7 +55,10 @@ namespace ProyectoOrderTwoGo.Bussinees
         }
         public DataTable Carrito(int id)
         {
-            string _sentencia = "select Carrito.idProducto,Productos.ProductNam,Carrito.idEmpresa, Empresa.nameEmpresa, Carrito.cantidad, Carrito.precio, Productos.stock from Carrito inner join Productos on Carrito.idProducto = Productos.idProduct inner join Empresa on Carrito.idEmpresa = Empresa.idEmpresa where Carrito.idUsuario = @idUsuario";
+            string _sentencia = "select Carrito.idProducto,Productos.ProductNam,Carrito.idEmpresa, " +
+                "Empresa.nameEmpresa, Carrito.cantidad, Carrito.precio, Productos.stock from Carrito " +
+                "inner join Productos on Carrito.idProducto = Productos.idProduct " +
+                "inner join Empresa on Carrito.idEmpresa = Empresa.idEmpresa where Carrito.idUsuario = @idUsuario";
             SqlCommand _command = new SqlCommand(_sentencia, _con);
             _command.CommandType = CommandType.Text;
             _command.Parameters.AddWithValue("@idUsuario", id);
@@ -67,37 +70,101 @@ namespace ProyectoOrderTwoGo.Bussinees
 
         public DataTable Registro(int id) {
 
-            int total = 0;
-            string _sentencia = "select Carrito.idProducto,Productos.ProductNam,Carrito.idEmpresa, Empresa.nameEmpresa, Carrito.cantidad, Carrito.precio, Productos.stock from Carrito inner join Productos on Carrito.idProducto = Productos.idProduct inner join Empresa on Carrito.idEmpresa = Empresa.idEmpresa where Carrito.idUsuario = @idUsuario";
-            SqlCommand _command = new SqlCommand(_sentencia, _con);
-            _command.CommandType = CommandType.Text;
-            _command.Parameters.AddWithValue("@idUsuario", id);
-            SqlDataAdapter _ap = new SqlDataAdapter(_command);
-            DataTable _dT = new DataTable();
-            _ap.Fill(_dT);
-            for (int i = 0; i < _dT.Rows.Count; i++) {
-                total = total + (int.Parse(_dT.Rows[i]["precio"].ToString()) * int.Parse(_dT.Rows[i]["cantidad"].ToString()));
+            try
+            {
+                int total = 0;
+                string _sentencia = "select Carrito.idProducto,Productos.ProductNam,Carrito.idEmpresa, Empresa.nameEmpresa, " +
+                    "Carrito.cantidad, Carrito.precio, Productos.stock from Carrito inner join Productos on Carrito.idProducto = Productos.idProduct " +
+                    "inner join Empresa on Carrito.idEmpresa = Empresa.idEmpresa where Carrito.idUsuario = @idUsuario";
+                SqlCommand _command = new SqlCommand(_sentencia, _con);
+                _command.CommandType = CommandType.Text;
+                _command.Parameters.AddWithValue("@idUsuario", id);
+                SqlDataAdapter _ap = new SqlDataAdapter(_command);
+                DataTable _dT = new DataTable();
+                _ap.Fill(_dT);
+                if (int.Parse(_dT.Rows[0]["cantidad"].ToString()) < int.Parse(_dT.Rows[0]["stock"].ToString()))
+                {
+
+                    for (int i = 0; i < _dT.Rows.Count; i++)
+                    {
+                        total = total + (int.Parse(_dT.Rows[i]["precio"].ToString()) * int.Parse(_dT.Rows[i]["cantidad"].ToString()));
+                    }
+                }
+                else
+                {
+
+                }
+
+                RegistrarFactura(_dT, total, id);
+                return _dT;
             }
-            RegistrarFactura(_dT, total);
-            return _dT;
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }       
+            
         }
 
-        public void RegistrarFactura(DataTable _dt, int total) {
+        public void RegistrarFactura(DataTable _dt, int total, int id) {
 
-            SqlCommand _command = new SqlCommand("RegistroFactura", _con);
-            _command.CommandType = CommandType.StoredProcedure;         
-            _command.Parameters.AddWithValue("@opcion", 1);
-            _command.Parameters.AddWithValue("@total", total);
-            //_command.Parameters.AddWithValue("@idEmpresa", )
-            RegistrarProductos(_dt);
-            //_con.Open();
+            try
+            {
+                SqlCommand _command = new SqlCommand("RegistroFactura", _con);
+                _command.CommandType = CommandType.StoredProcedure;
+                _command.Parameters.AddWithValue("@opcion", 1);
+                _command.Parameters.AddWithValue("@total", total);
+                _command.Parameters.AddWithValue("@idUsuario", id);
+                _con.Open();
+                _command.ExecuteNonQuery();
+                _con.Close();
 
+                RegistrarProductos(_dt, id);
+            }
+            catch (Exception ex)
+            {
 
+                throw new Exception(ex.Message);
+            }
+            
         }
 
-        public void RegistrarProductos(DataTable _dt) { 
-        
-                
+        public void RegistrarProductos(DataTable _dt, int id) {
+
+            try
+            {
+                int update = int.Parse(_dt.Rows[0]["stock"].ToString()) - int.Parse(_dt.Rows[0]["cantidad"].ToString());
+                SqlCommand _command = new SqlCommand();
+                for (int i = 0; i < _dt.Rows.Count; i++)
+                {
+                    _command = new SqlCommand("RegistroFactura", _con);
+                    _command.CommandType = CommandType.StoredProcedure;
+                    _con.Open();
+                    _command.Parameters.AddWithValue("@opcion", 2);
+                    _command.Parameters.AddWithValue("@idProducto", _dt.Rows[i]["idProducto"]);
+                    _command.Parameters.AddWithValue("@idEmpresa", _dt.Rows[i]["idEmpresa"]);
+                    _command.Parameters.AddWithValue("@cantidad", _dt.Rows[i]["Cantidad"]);
+                    _command.Parameters.AddWithValue("@precio", _dt.Rows[i]["Precio"]);
+                    _command.Parameters.AddWithValue("@update", update);
+                    _command.ExecuteNonQuery();
+                    _con.Close();
+                }
+
+                _command = new SqlCommand("RegistroFactura", _con);
+                _command.CommandType = CommandType.StoredProcedure;
+                _con.Open();
+                _command.Parameters.AddWithValue("@opcion", 3);
+                _command.Parameters.AddWithValue("@idUsuario", id);
+                _command.ExecuteNonQuery();
+                _con.Close();
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+           
         }
       
 

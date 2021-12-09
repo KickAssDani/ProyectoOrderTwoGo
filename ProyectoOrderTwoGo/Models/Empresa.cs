@@ -31,6 +31,7 @@ namespace ProyectoOrderTwoGo.Models
             numeroTelefono = Convert.ToInt32(r["numeroTelefono"]);
 
         }
+
         public int idEmpresa { get; set; }
         public string nameEmpresa { get; set; }
         public string DescripcionEmpresa { get; set; }
