@@ -38,6 +38,15 @@ namespace ProyectoOrderTwoGo.Controllers
                 List<ProductosRepository> _repository = _productos.ObtenerInfoProductos();
                 ViewBag.Productos = _repository.ToList().ToPagedList(pageIndex, pageSize);
 
+                if (Session["id"] != null)
+                {
+                    List<CarritoRepository> _carrito = _productos.Carrito(int.Parse(Session["id"].ToString()));
+                    ViewBag.Carrito = _carrito;
+                }
+                else {
+                    TempData["Mensaje"] = "No hay productos en el carrito o no ha ingresado a su cuenta.";
+                }
+              
                 productos = ViewBag.Productos;
 
                 return View(productos);
@@ -49,28 +58,68 @@ namespace ProyectoOrderTwoGo.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult ActualizarCarrito(int id) {
+            
+            if (Session["id"] != null)
+            {
+                var results = from p in _context.Carrito where p.idProducto == id select p;
+                foreach (var p in results)
+                {
+                    p.cantidad = p.cantidad + 1;
+                }
+                _context.SaveChanges();
+                return RedirectToAction("Productos");
+            }
+            else {
+                TempData["Mensaje"] = "Debe de registrarse para poder ver sus artículos en el carrito.";
+                return RedirectToAction("OrderTwoGo");
+            }
+        
+        }
+
         public ActionResult Carrito(int id)
         {
             try
             {
-                Productos productos = _context.Productos.Find(id);
+                if (Session["id"] != null)
+                {
+                    var results = from p in _context.Carrito where p.idProducto == id select p;
+                    Productos productos = _context.Productos.Find(id);
+                    Carrito _carrito = new Carrito();
 
-                Carrito _carrito = new Carrito();
 
-                _carrito.idProducto = productos.idProduct;
-                _carrito.idEmpresa = productos.idEmpresa;
-                _carrito.precio = productos.precio;
-                _carrito.cantidad = 1;
-                _carrito.idUsuario = int.Parse(Session["id"].ToString());
+                    if (results.Count() > 0)
+                    {
 
-                _context.Carrito.Add(_carrito);
-                _context.SaveChanges();
-                TempData["Mensaje"] = "Se hicieron los cambios correctamente";
-                return RedirectToAction("OrderTwoGo");
+                        foreach (var p in results)
+                        {
+                            p.cantidad = p.cantidad + 1;
+                        }
+                        _context.SaveChanges();
+                        return View();
+                    }
+                    else
+                    {
+                        _carrito.idProducto = productos.idProduct;
+                        _carrito.idEmpresa = productos.idEmpresa;
+                        _carrito.precio = productos.precio;
+                        _carrito.cantidad = 1;
+                        _carrito.idUsuario = int.Parse(Session["id"].ToString());
+
+                        _context.Carrito.Add(_carrito);
+                        _context.SaveChanges();
+                        TempData["Mensaje"] = "Se agregó el producto al carrito correctamente.";
+                        return RedirectToAction("OrderTwoGo");
+                    }
+                }
+                else {
+                    TempData["Mensaje"] = "Para poder hacer el registro del producto en el carrito debe de loguearse.";
+                    return RedirectToAction("OrderTwoGo");
+                }
             }
             catch (Exception ex)
             {
-
                 TempData["Mensaje"] = "Hubo un error mientras se registraba el producto " + ex.Message;
                 return RedirectToAction("OrderTwoGo");
             }
@@ -79,11 +128,19 @@ namespace ProyectoOrderTwoGo.Controllers
      
         public ActionResult Productos() {
 
-            ListaEmpresas _productos = new ListaEmpresas();
-            List<CarritoRepository> _carrito = _productos.Carrito(int.Parse(Session["id"].ToString()));
+            if (Session["id"] != null)
+            {
+                ListaEmpresas _productos = new ListaEmpresas();
+                List<CarritoRepository> _carrito = _productos.Carrito(int.Parse(Session["id"].ToString()));
+                ViewBag.Carrito = _carrito;
+                return View();
 
-            ViewBag.Carrito = _carrito;
-            return View();
+            }
+            else {
+                return RedirectToAction("OrderTwoGo", "Home");
+            }
+
+            
         }
         
         public ActionResult RegistrarCompra() {

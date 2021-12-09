@@ -21,6 +21,8 @@
 
                         @Html.ActionLink("Empresas", "Index", "Empresas", new { area = "" }, new { @class = "nav-link text-dark" })
 
+                        @Html.ActionLink("OrderTwoGo", "OrderTwoGo", "Home", new { area = "" }, new { @class = "nav-link text-dark" })
+
                         @Html.ActionLink("Producto", "Index", "Productos", new { area = "" }, new { @class = "nav-link text-dark" })
                         <a href="@Url.Action("LogOut", "Users")" class="nav-link text-dark">Log Out</a>
                     }
@@ -33,6 +35,7 @@
                         }
                         else
                         {
+                            @Html.ActionLink("OrderTwoGo", "OrderTwoGo", "Home", new { area = "" }, new { @class = "nav-link text-dark" })
                             @Html.ActionLink("Ingresar", "Login", "Users", new { area = "" }, new { @class = "nav-link text-dark" })
                             @Html.ActionLink("Registrarse", "Index", "Users", new { area = "" }, new { @class = "nav-link text-dark" })
                         }

@@ -6,32 +6,62 @@
 
 <h2>Productos</h2>
 
+<section class="container">
+    <section class="row">
+        <section class="col-md-12">
+            @if (TempData["Mensaje"] != null)
+            {
+                <section class="alert alert-warning alert-dismissible fade show" role="alert">
+                    @TempData["Mensaje"]
+                    <button type="button" class="close" date-dismiss="alert" arial-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </section>
+            }
+        </section>
+    </section>
+</section>
 
-@if (ViewBag.Carrito != null)
+@if (Enumerable.Count(ViewBag.Carrito) > 0)
 {
-    <table>
-        <thead>
-            <tr>
-                <td>Nombre Producto</td>
-            </tr>
-        </thead>
-
-        @foreach (var i in ViewBag.Carrito)
-        {
-            <tbody>
+    <section class="table-responsive">
+        <table class="table">
+            <thead>
                 <tr>
-                    @Html.HiddenFor(m => m.idProducto)
-                    @Html.HiddenFor(m => m.idEmpresa)
-                    <td>@i.NombreProducto</td>
-                    <td>@Html.EditorFor(m => m.NombreProducto)</td>
+                    <td>Codigo Producto</td>
+                    <td>Nombre Producto</td>
+                    <td>Empresa</td>
+                    <td>Cantidad</td>
+                    <td>Precio</td>
+                    <td>Monto</td>
+                    <td></td>
                 </tr>
-            </tbody>
-        }
-    </table>
+            </thead>
+
+            @foreach (var i in ViewBag.Carrito)
+            {
+                <tbody>
+                    <tr>
+                        <td>@i.idProducto</td>
+                        <td>@i.NombreProducto</td>
+                        <td>@i.nameEmpresa</td>
+                        <td>@i.cantidad</td>
+                        <td>@i.precio</td>
+                        <td>@i.total</td>
+                        <td>
+                            @Html.ActionLink("Subir", "ActualizarCarrito", new { id = i.idProducto }, new { @class = "btn btn-block btn-warning col-md-6 fas fa-shopping-cart" })
+                            @Html.ActionLink("Eliminar", "RegistrarCompra", "", new { @class = "btn btn-block btn-warning col-md-6 fas fa-shopping-cart" })
+                        </td>
+                    </tr>
+                </tbody>
+            }
+        </table>
+
+    </section>
+    @Html.ActionLink("Registrar compra", "RegistrarCompra", "", new { @class = "btn btn-block btn-warning col-md-12 fas fa-shopping-cart" })
 }
 else
 {
     <h1>No hay productos en el carrito.</h1>
 }
 
-@Html.ActionLink("Registrar compra", "RegistrarCompra", "" ,new { @class = "btn btn-block btn-warning col-md-12 fas fa-shopping-cart" })
