@@ -44,7 +44,7 @@ namespace ProyectoOrderTwoGo.Bussinees
         public DataTable ObtenerInfoProductos()
         {
             string _sentencia = "select Productos.idProduct as codigo, Productos.ProductNam as NombreProducto, " +
-                "Productos.precio, Empresa.idEmpresa, Empresa.nameEmpresa as Empresa " +
+                "Productos.precio, Empresa.idEmpresa, Empresa.nameEmpresa as Empresa, Productos.stock " +
                 "from Productos inner join Empresa on Productos.idEmpresa = Empresa.idEmpresa";
             SqlCommand _command = new SqlCommand(_sentencia, _con);
             _command.CommandType = CommandType.Text;
@@ -82,21 +82,21 @@ namespace ProyectoOrderTwoGo.Bussinees
                 SqlDataAdapter _ap = new SqlDataAdapter(_command);
                 DataTable _dT = new DataTable();
                 _ap.Fill(_dT);
-                if (int.Parse(_dT.Rows[0]["cantidad"].ToString()) < int.Parse(_dT.Rows[0]["stock"].ToString()))
+                if (int.Parse(_dT.Rows[0]["cantidad"].ToString()) <= int.Parse(_dT.Rows[0]["stock"].ToString()))
                 {
 
                     for (int i = 0; i < _dT.Rows.Count; i++)
                     {
                         total = total + (int.Parse(_dT.Rows[i]["precio"].ToString()) * int.Parse(_dT.Rows[i]["cantidad"].ToString()));
                     }
+
+                    RegistrarFactura(_dT, total, id);
+                    return _dT;
                 }
                 else
                 {
-
+                    return _dT;
                 }
-
-                RegistrarFactura(_dT, total, id);
-                return _dT;
             }
             catch (Exception ex)
             {

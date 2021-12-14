@@ -227,6 +227,7 @@
     <Content Include="Views\Home\Productos.cshtml" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <Content Include="Views\Home\Carrito.cshtml" />
+    <Content Include="Views\Users\Registrarse.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

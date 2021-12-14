@@ -15,6 +15,8 @@ namespace ProyectoOrderTwoGo.Datos
         public string NombreEmpresa { get; set; }
         public string ImagenProducto { get; set; }
 
+        public virtual int stock { get; set; }
+
         public ProductosRepository(DataRow r)
         {
             idProducto = Convert.ToInt32(r["codigo"]);
@@ -22,6 +24,7 @@ namespace ProyectoOrderTwoGo.Datos
             Precio = Convert.ToInt32(r["precio"]);
             idEmpresa = Convert.ToInt32(r["idEmpresa"]);
             NombreEmpresa = Convert.ToString(r["Empresa"]);
+            stock = Convert.ToInt32(r["stock"]);
         }
     }
 }

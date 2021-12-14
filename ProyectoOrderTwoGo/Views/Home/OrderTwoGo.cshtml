@@ -6,9 +6,11 @@
     if (ViewBag.Carrito != null)
     {
         count = ViewBag.Carrito.Count;
+  
     }
-    else {
-       count = 0;
+    else
+    {
+        count = 0;
     }
 
 }
@@ -27,7 +29,7 @@
                     </button>
                 </section>
             }
-        </section>   
+        </section>
     </section>
 </section>
 
@@ -43,14 +45,22 @@
                             <article class="card">
                                 <section class="card-header">
 
-                                    <span class=""><strong>@e.idProducto</strong></span><span>@e.NombreProducto</span>
+                                    <span class="">@e.NombreProducto</span>
                                 </section>
                                 <section class="card-body">
                                     <br />
                                     <label>Precio:</label>
                                     @e.Precio
                                     <section class="row">
-                                        <div class="col-md-6">@Html.ActionLink("Carrito", "Carrito", new { id = e.idProducto }, new { @class = "btn btn-block btn-warning col-md-12" })</div>
+                                        @if (e.stock == 0)
+                                        {
+                                            <p style="color: red">Este producto se encuentra agotado.</p>
+                                        }
+                                        else
+                                        {
+                                            <div class="col-md-6">@Html.ActionLink("Carrito", "Carrito", new { id = e.idProducto }, new { @class = "btn btn-block btn-warning col-md-12" })</div>
+                                        }
+
                                     </section>
                                 </section>
                             </article>

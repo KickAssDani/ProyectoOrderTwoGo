@@ -45,6 +45,7 @@ namespace ProyectoOrderTwoGo.Controllers
         {
             try
             {
+               
                 IEnumerable<Usuarios> _listsEmpleados = _context.Usuarios.ToList();
 
                 return View(_listsEmpleados);
@@ -103,20 +104,20 @@ namespace ProyectoOrderTwoGo.Controllers
             }
             catch (Exception ex)
             {
-                TempData["Mensaje"] = "Hubieron errores en la actualización: " +ex.Message;
+                TempData["Mensaje"] = "Hubieron errores en la actualización: " + ex.Message;
                 return RedirectToAction("Index");
             }
-                
+
         }
 
         [HttpPost]
-        public ActionResult AgregarPost(Usuarios _usuarios) 
+        public ActionResult AgregarPost(Usuarios _usuarios)
         {
             try
             {
                 using (db_a7da1c_order2goEntities db = new db_a7da1c_order2goEntities())
                 {
-                    
+
                     var UserDatails = db.Usuarios.Where(x => x.usuario == _usuarios.usuario).FirstOrDefault();
                     if (UserDatails == null)
                     {
@@ -130,7 +131,52 @@ namespace ProyectoOrderTwoGo.Controllers
                         TempData["Mensaje"] = "Ya hay un usuario agregado, intente con otro distinto.";
                         return RedirectToAction("Agregar");
                     }
-                    
+
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["Mensaje"] = "Hubo un error:" + ex.Message;
+                return RedirectToAction("Index");
+            }
+        }
+
+        public ActionResult Registrarse()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Registrar(Usuarios _usuarios)
+        {
+            try
+            {
+                using (db_a7da1c_order2goEntities db = new db_a7da1c_order2goEntities())
+                {
+
+                    var UserDatails = db.Usuarios.Where(x => x.usuario == _usuarios.usuario).FirstOrDefault();
+                    if (UserDatails == null)
+                    {
+                        Usuarios _users = new Usuarios();
+
+                        _users.idRol = 3;
+                        _users.idEmpresa = 3;
+                        _users.NombreUsuario = _usuarios.NombreUsuario;
+                        _users.usuario = _usuarios.usuario;
+                        _users.clave = _usuarios.clave;
+
+                        _context.Usuarios.Add(_users);
+                        _context.SaveChanges();
+                        TempData["Mensaje"] = "Se agregó correctamente el dato.";
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        TempData["Mensaje"] = "Ya hay un usuario agregado, intente con otro distinto.";
+                        return RedirectToAction("Agregar");
+                    }
+
                 }
             }
             catch (Exception ex)

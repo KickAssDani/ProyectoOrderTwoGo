@@ -5,9 +5,9 @@
 }
 
 <section class="row">
-    <article class="col-md-4 offset-md-4">
+    <article class="col-md-8 offset-md-2">
         <section class="card">
-            <article class="offset-md-1">
+            <article class="card-body">
                 @using (Html.BeginForm("Edit", "Productos", FormMethod.Post, new { @class = "form-group" }))
                 {
                     @Html.HiddenFor(m => m.idProduct)
@@ -24,6 +24,13 @@
                         @Html.LabelFor(m => m.idEmpresa)
                         @Html.DropDownListFor(x => x.idEmpresa, (SelectList)ViewBag.Empresa, new { @class = "form-control" })
                     </section>
+                    <section>
+                        @Html.LabelFor(m => m.stock)
+                        @Html.EditorFor(m => m.stock, new { htmlAttributes = new { @class = " col-md-12 form-control" } })
+                    </section>
+                    <section style="color:red" class="row">@Html.ValidationMessageFor(m => m.ProductNam)</section>
+                    <section style="color:red" class="row">@Html.ValidationMessageFor(m => m.precio)</section>
+                    <section style="color:red" class="row">@Html.ValidationMessageFor(m => m.idEmpresa)</section>
                     <br />
                     <section class="">
                         <input type="submit" class="btn btn-block btn-primary" name="nam" value="Actualizar">

@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using PagedList.Mvc;
 using PagedList;
 using System.Web.UI;
+using System.Data;
 
 namespace ProyectoOrderTwoGo.Controllers
 {
@@ -43,9 +44,7 @@ namespace ProyectoOrderTwoGo.Controllers
                     List<CarritoRepository> _carrito = _productos.Carrito(int.Parse(Session["id"].ToString()));
                     ViewBag.Carrito = _carrito;
                 }
-                else {
-                    TempData["Mensaje"] = "No hay productos en el carrito o no ha ingresado a su cuenta.";
-                }
+                
               
                 productos = ViewBag.Productos;
 
@@ -148,6 +147,7 @@ namespace ProyectoOrderTwoGo.Controllers
 
             ListaEmpresas _productos = new ListaEmpresas();
             _productos.Registrar(int.Parse(Session["id"].ToString()));
+            
 
             return RedirectToAction("OrderTwoGo");
         }

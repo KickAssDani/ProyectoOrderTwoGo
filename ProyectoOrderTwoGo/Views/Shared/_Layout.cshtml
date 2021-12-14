@@ -32,7 +32,7 @@
                     }
                     else
                     {
-                        if (Session["user"] != null)
+                        if (Session["Rol"] != null && int.Parse(Session["Rol"].ToString()) == 2)
                         {
                             @Html.ActionLink("Producto", "Index", "Productos", new { area = "" }, new { @class = "nav-link text-dark" })
                             @Html.ActionLink("OrderTwoGo", "OrderTwoGo", "Home", new { area = "" }, new { @class = "nav-link text-dark" })
@@ -40,10 +40,22 @@
                         }
                         else
                         {
-                            @Html.ActionLink("OrderTwoGo", "OrderTwoGo", "Home", new { area = "" }, new { @class = "nav-link text-dark" })
-                            @Html.ActionLink("Ingresar", "Login", "Users", new { area = "" }, new { @class = "nav-link text-dark" })
-                            @Html.ActionLink("Registrarse", "Index", "Users", new { area = "" }, new { @class = "nav-link text-dark" })
+                            if (Session["Rol"] == null)
+                            {
+                                @Html.ActionLink("OrderTwoGo", "OrderTwoGo", "Home", new { area = "" }, new { @class = "nav-link text-dark" })
+                                @Html.ActionLink("Ingresar", "Login", "Users", new { area = "" }, new { @class = "nav-link text-dark" })
+                                @Html.ActionLink("Registrarse", "Registrarse", "Users", new { area = "" }, new { @class = "nav-link text-dark" })
+                            }
+                            else
+                            {
+                                @Html.ActionLink("OrderTwoGo", "OrderTwoGo", "Home", new { area = "" }, new { @class = "nav-link text-dark" })
+                                 @Html.ActionLink("Carrito", "Productos", new { area = "" }, new { @class = "nav-link text-dark" })
+                                <a href="@Url.Action("LogOut", "Users")" class="nav-link text-dark">Log Out</a>
+                            }
+
                         }
+
+
                     }
 
                 </ul>

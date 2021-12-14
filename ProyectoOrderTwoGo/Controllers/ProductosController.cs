@@ -84,6 +84,7 @@ namespace ProyectoOrderTwoGo.Controllers
                 producto.ProductNam = _productos.ProductNam;
                 producto.idEmpresa = _productos.idEmpresa;
                 producto.precio = _productos.precio;
+                producto.stock = _productos.stock;
                 _context.SaveChanges();
                 TempData["Mensaje"] = "Se hicieron los cambios correctamente";
                 return RedirectToAction("Index");
