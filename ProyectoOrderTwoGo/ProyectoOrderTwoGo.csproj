@@ -225,6 +225,8 @@
     <Content Include="Views\Productos\EditarProducto.cshtml" />
     <Content Include="Views\Home\OrderTwoGo.cshtml" />
     <Content Include="Views\Home\Productos.cshtml" />
+    <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
+    <Content Include="Views\Home\Carrito.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

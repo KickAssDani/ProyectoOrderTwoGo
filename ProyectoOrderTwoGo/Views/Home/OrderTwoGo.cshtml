@@ -33,24 +33,7 @@
 
 <div class="container" id="contenedor">
     <div class="row">
-        <div class="col-md-2" id="lateral">
-            <div class="row">
-                <div class="col-md-10" id="anuncios">
-                    <aside>
-                        
-                        @if (count > 0)
-                        {
-                            @Html.ActionLink("Carrito", "Productos", "-", new { @class = "btn btn-block btn-warning col-md-12 " })
-                        }
-                        else
-                        {
-                            <a class="btn btn-block" href="#"><i class="fas fa-shopping-cart"></i></a>
-                        }
-                    </aside>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-10" id="principal">
+        <div class="col-md-12" id="principal">
             <div class="row">
                 @if (ViewBag.Productos != null)
                 {

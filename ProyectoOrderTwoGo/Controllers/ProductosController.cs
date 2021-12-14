@@ -99,14 +99,7 @@ namespace ProyectoOrderTwoGo.Controllers
         public ActionResult AgregarProductosAdmi(Productos _produtos)
         {
             try
-            {
-                string filename = Path.GetFileNameWithoutExtension(_produtos.Imagen.FileName);
-                string extensio = Path.GetExtension(_produtos.Imagen.FileName);
-                filename = filename + DateTime.Now.ToString("yymmssfff") + extensio;
-                _produtos.ImagenProducto = "~/images/"+filename;
-                filename = Path.Combine(Server.MapPath("~/images/"), filename);
-                _produtos.Imagen.SaveAs(filename);
-                
+            { 
                 _context.Productos.Add(_produtos);
                 _context.SaveChanges();
                 TempData["Mensaje"] = "Se agregó correctamente el dato.";
@@ -115,7 +108,7 @@ namespace ProyectoOrderTwoGo.Controllers
             catch (Exception ex)
             {
                 TempData["Mensaje"] = "Hubo un error:" + ex.Message;
-                return View("Index");
+                return RedirectToAction("Index");
             }
         }
     }

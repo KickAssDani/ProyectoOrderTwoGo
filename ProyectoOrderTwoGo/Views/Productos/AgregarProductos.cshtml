@@ -2,6 +2,17 @@
 @{
     ViewBag.Title = "AgregarProductos";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    if (Session["Rol"] == null)
+    {
+        Response.Redirect("~/Home/Index");
+    }
+    else
+    {
+        if (int.Parse(Session["Rol"].ToString()) != 1)
+        {
+            Response.Redirect("~/Home/Index");
+        }
+    }
 }
 
 <article class="container">
@@ -31,10 +42,7 @@
                         @Html.LabelFor(m => m.stock)
                         @Html.EditorFor(m => m.stock, new { htmlAttributes = new { @class = " col-md-12 form-control" } })
                     </section>
-                    <section>
-                        @Html.LabelFor(m => m.stock)
-                        <input type="file" name="Imagen" required />
-                    </section>
+                    
                     <section style="color:red" class="row">@Html.ValidationMessageFor(m => m.ProductNam)</section>
                     <section style="color:red" class="row">@Html.ValidationMessageFor(m => m.precio)</section>
                     <section style="color:red" class="row">@Html.ValidationMessageFor(m => m.idEmpresa)</section>

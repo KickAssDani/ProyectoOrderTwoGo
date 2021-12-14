@@ -38,8 +38,6 @@ namespace ProyectoOrderTwoGo.Models
         [DisplayName("Cantidad de Productos:")]
         public Nullable<int> stock { get; set; }
         public string ImagenProducto { get; set; }
-
-
         public HttpPostedFileBase Imagen { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
