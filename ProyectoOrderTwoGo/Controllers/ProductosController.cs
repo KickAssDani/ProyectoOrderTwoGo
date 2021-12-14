@@ -11,10 +11,10 @@ namespace ProyectoOrderTwoGo.Controllers
 {
     public class ProductosController : Controller
     {
-        private readonly Orden2GoEntities _context;
+        private readonly db_a7da1c_order2goEntities _context;
         public ProductosController()
         {
-            _context = new Orden2GoEntities();
+            _context = new db_a7da1c_order2goEntities();
         }
 
         public ActionResult Index()

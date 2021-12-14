@@ -15,11 +15,11 @@ namespace ProyectoOrderTwoGo.Controllers
     public class HomeController : Controller
     {
         // GET: Home
-        private readonly Orden2GoEntities _context;
+        private readonly db_a7da1c_order2goEntities _context;
 
         public HomeController()
         {
-            _context = new Orden2GoEntities();
+            _context = new db_a7da1c_order2goEntities();
         }
         public ActionResult Index()
         {
@@ -58,7 +58,7 @@ namespace ProyectoOrderTwoGo.Controllers
             }
         }
 
-        [HttpPost]
+        
         public ActionResult ActualizarCarrito(int id) {
             
             if (Session["id"] != null)
@@ -73,7 +73,7 @@ namespace ProyectoOrderTwoGo.Controllers
             }
             else {
                 TempData["Mensaje"] = "Debe de registrarse para poder ver sus artículos en el carrito.";
-                return RedirectToAction("OrderTwoGo");
+                return RedirectToAction("Productos");
             }
         
         }

@@ -115,6 +115,16 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Content Include="Models\OrderTwoGo.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>OrderTwoGo.edmx</DependentUpon>
+      <LastGenOutput>OrderTwoGo.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\OrderTwoGo.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>OrderTwoGo.edmx</DependentUpon>
+      <LastGenOutput>OrderTwoGo.cs</LastGenOutput>
+    </Content>
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -131,16 +141,16 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Carrito.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>OrderTwoGo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Empresa.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>OrderTwoGo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Factura.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>OrderTwoGo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\FacturaDetalle.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>OrderTwoGo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Model1.Context.cs">
       <AutoGen>True</AutoGen>
@@ -157,14 +167,29 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\OrderTwoGo.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OrderTwoGo.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OrderTwoGo.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OrderTwoGo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OrderTwoGo.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OrderTwoGo.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\Productos.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>OrderTwoGo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Roles.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>OrderTwoGo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Usuarios.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>OrderTwoGo.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -176,6 +201,13 @@
     </EntityDeploy>
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\OrderTwoGo.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>OrderTwoGo.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\OrderTwoGo.edmx.diagram">
+      <DependentUpon>OrderTwoGo.edmx</DependentUpon>
     </Content>
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />

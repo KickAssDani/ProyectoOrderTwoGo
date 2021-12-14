@@ -31,6 +31,7 @@
                         if (Session["user"] != null)
                         {
                             @Html.ActionLink("Producto", "Index", "Productos", new { area = "" }, new { @class = "nav-link text-dark" })
+                            @Html.ActionLink("OrderTwoGo", "OrderTwoGo", "Home", new { area = "" }, new { @class = "nav-link text-dark" })
                             <a href="@Url.Action("LogOut", "Users")" class="nav-link text-dark">Log Out</a>
                         }
                         else

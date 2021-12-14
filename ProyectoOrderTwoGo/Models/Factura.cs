@@ -24,8 +24,8 @@ namespace ProyectoOrderTwoGo.Models
         public Nullable<int> idUsuario { get; set; }
         public Nullable<int> Monto { get; set; }
     
+        public virtual Usuarios Usuarios { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FacturaDetalle> FacturaDetalle { get; set; }
-        public virtual Usuarios Usuarios { get; set; }
     }
 }

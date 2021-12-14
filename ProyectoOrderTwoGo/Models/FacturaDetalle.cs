@@ -21,8 +21,8 @@ namespace ProyectoOrderTwoGo.Models
         public Nullable<int> cantidad { get; set; }
         public Nullable<int> precio { get; set; }
     
-        public virtual Factura Factura { get; set; }
         public virtual Empresa Empresa { get; set; }
+        public virtual Factura Factura { get; set; }
         public virtual Productos Productos { get; set; }
     }
 }

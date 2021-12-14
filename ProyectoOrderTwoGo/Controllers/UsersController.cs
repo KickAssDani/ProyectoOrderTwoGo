@@ -10,11 +10,13 @@ namespace ProyectoOrderTwoGo.Controllers
 {
     public class UsersController : Controller
     {
-        private readonly Orden2GoEntities _context;
+        private readonly db_a7da1c_order2goEntities _context;
+
+
 
         public UsersController()
         {
-            _context = new Orden2GoEntities();
+            _context = new db_a7da1c_order2goEntities();
         }
 
         public ActionResult Agregar()
@@ -112,7 +114,7 @@ namespace ProyectoOrderTwoGo.Controllers
         {
             try
             {
-                using (Orden2GoEntities db = new Orden2GoEntities())
+                using (db_a7da1c_order2goEntities db = new db_a7da1c_order2goEntities())
                 {
                     
                     var UserDatails = db.Usuarios.Where(x => x.usuario == _usuarios.usuario).FirstOrDefault();
@@ -143,7 +145,7 @@ namespace ProyectoOrderTwoGo.Controllers
         {
             try
             {
-                using (Orden2GoEntities db = new Orden2GoEntities())
+                using (db_a7da1c_order2goEntities db = new db_a7da1c_order2goEntities())
                 {
                     var UserDatails = db.Usuarios.Where(x => x.usuario == users.usuario && x.clave == users.clave).FirstOrDefault();
                     if (UserDatails == null)

@@ -15,7 +15,7 @@ namespace ProyectoOrderTwoGo.Bussinees
         SqlConnection _con;
         public ListaEmpresas()
         {
-            _conexion = "server=EDUARDOCHAVES\\SQLEXPRESS;initial catalog=Orden2Go;integrated security=True;";
+            _conexion = "Data Source=SQL5104.site4now.net;Initial Catalog=db_a7da1c_order2go;User Id=db_a7da1c_order2go_admin;Password=jechaves2312!";
             _con = new SqlConnection(_conexion);
         }
         public List<Empresa> Obtener()

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="665801c86e5c4ef9bdc18b1a002dd259" Name="Diagram1">
+        <EntityTypeShape EntityType="db_a7da1c_order2goModel.Carrito" Width="1.5" PointX="5.25" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_a7da1c_order2goModel.Empresa" Width="1.5" PointX="0.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_a7da1c_order2goModel.Factura" Width="1.5" PointX="5.25" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_a7da1c_order2goModel.FacturaDetalle" Width="1.5" PointX="8.25" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_a7da1c_order2goModel.Productos" Width="1.5" PointX="3" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_a7da1c_order2goModel.Roles" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_a7da1c_order2goModel.Usuarios" Width="1.5" PointX="3" PointY="6.75" IsExpanded="true" />
+        <AssociationConnector Association="db_a7da1c_order2goModel.FK_Carrito_Empresa" ManuallyRouted="false" />
+        <AssociationConnector Association="db_a7da1c_order2goModel.FK_Carrito_Productos" ManuallyRouted="false" />
+        <AssociationConnector Association="db_a7da1c_order2goModel.FK_Carrito_Usuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="db_a7da1c_order2goModel.FK_FacturaDetalle_Empresa" ManuallyRouted="false" />
+        <AssociationConnector Association="db_a7da1c_order2goModel.FK_Productos_Empresa" ManuallyRouted="false" />
+        <AssociationConnector Association="db_a7da1c_order2goModel.FK_Usuarios_Empresa" ManuallyRouted="false" />
+        <AssociationConnector Association="db_a7da1c_order2goModel.FK_Factura_Usuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="db_a7da1c_order2goModel.FK_FacturaDetalle_Factura" ManuallyRouted="false" />
+        <AssociationConnector Association="db_a7da1c_order2goModel.FK_FacturaDetalle_Productos" ManuallyRouted="false" />
+        <AssociationConnector Association="db_a7da1c_order2goModel.FK_Usuarios_Roles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

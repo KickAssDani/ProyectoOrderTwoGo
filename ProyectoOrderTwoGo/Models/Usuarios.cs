@@ -11,7 +11,9 @@ namespace ProyectoOrderTwoGo.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Usuarios
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,15 +24,27 @@ namespace ProyectoOrderTwoGo.Models
         }
     
         public int idUsuario { get; set; }
+
+        [DisplayName("Tipo de usuario:")]
         public int idRol { get; set; }
+
+        [DisplayName("Empresa donde va a laborar:")]
+        [Required]
         public Nullable<int> idEmpresa { get; set; }
+        [DisplayName("Nombre de empleado:")]
+        [Required]
         public string NombreUsuario { get; set; }
+        [DisplayName("Usuario:")]
+        [Required]
         public string usuario { get; set; }
+        [DisplayName("Clave:")]
+        [Required]
+        [DataType(DataType.Password)]
         public string clave { get; set; }
     
-        public virtual Empresa Empresa { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Carrito> Carrito { get; set; }
+        public virtual Empresa Empresa { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Factura> Factura { get; set; }
         public virtual Roles Roles { get; set; }

@@ -11,6 +11,8 @@ namespace ProyectoOrderTwoGo.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
     using System.Data;
 
     public partial class Empresa
@@ -18,10 +20,10 @@ namespace ProyectoOrderTwoGo.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Empresa()
         {
-            this.Productos = new HashSet<Productos>();
-            this.Usuarios = new HashSet<Usuarios>();
             this.Carrito = new HashSet<Carrito>();
             this.FacturaDetalle = new HashSet<FacturaDetalle>();
+            this.Productos = new HashSet<Productos>();
+            this.Usuarios = new HashSet<Usuarios>();
         }
         public Empresa(DataRow r)
         {
@@ -33,17 +35,24 @@ namespace ProyectoOrderTwoGo.Models
         }
 
         public int idEmpresa { get; set; }
+        [DisplayName("Nombre de Empresa:")]
+        [Required]
         public string nameEmpresa { get; set; }
+        [DisplayName("Funciones, dirección o características de empresa:")]
+        [Required]
         public string DescripcionEmpresa { get; set; }
+        [DisplayName("Número telefónico:")]
+        [Required]
+        [DataType(DataType.PhoneNumber)]
         public Nullable<int> numeroTelefono { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Productos> Productos { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Usuarios> Usuarios { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Carrito> Carrito { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FacturaDetalle> FacturaDetalle { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Productos> Productos { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Usuarios> Usuarios { get; set; }
     }
 }
